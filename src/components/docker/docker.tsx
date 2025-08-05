@@ -5,9 +5,12 @@ import {
   IconBrandLinkedin,
   IconBriefcase,
   IconHome,
+  IconMedal,
+  IconSchool,
   IconUser,
 } from "@tabler/icons-react";
-
+//TODO: this component will have a glowing hover effect
+// https://ui.aceternity.com/components/glowing-effect
 export function Docker() {
   const iconClassName = "h-full w-full text-neutral-400";
   return (
@@ -33,11 +36,20 @@ export function Docker() {
           icon: <IconBrandLinkedin className={iconClassName} />,
           href: "https://www.linkedin.com/in/muhammadrukon/",
         },
-
         {
           title: "Projects",
           href: "/projects",
           icon: <IconBriefcase className={iconClassName} />,
+        },
+        {
+          title: "Education",
+          icon: <IconSchool className={iconClassName} />,
+          href: "/education",
+        },
+        {
+          title: "Achievements",
+          icon: <IconMedal className={iconClassName} />,
+          href: "/achievements",
         },
       ]}
     />

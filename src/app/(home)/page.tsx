@@ -7,6 +7,9 @@ export default function Home() {
       <PageContainer page="RUKON">
         <div className="text-white flex flex-col items-center justify-center">
           <h1 className="text-4xl font-bold">Muhammad Sheikh Rukon</h1>
+          {/* TODO: */}
+          {/* the title will have a text flip effect */}
+          {/* https://ui.aceternity.com/components/container-text-flip */}
           <p className="text-xl">Software Engineer</p>
           <br />
 
@@ -15,6 +18,10 @@ export default function Home() {
           </p>
           <br />
           <br />
+          {/* TODO: */}
+          {/* Add another button for hire me modal */}
+
+          {/* https://ui.aceternity.com/components/glowing-effect */}
           <a href="https://drive.google.com/uc?export=download&id=1eVv2HTJk2GwfEmh8J5NBJC513TyRhbxm">
             <HoverBorderGradient
               containerClassName="rounded-full cursor-pointer"
