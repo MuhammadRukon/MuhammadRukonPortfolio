@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import Header from "./components/header";
+import { FloatingDock } from "@/components/ui/floating-dock";
+import { IconBrandGithub, IconBriefcase, IconHome, IconUser } from "@tabler/icons-react";
+import { Docker } from "@/components/docker/docker";
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800", "900"],
@@ -19,9 +21,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${poppins.className} antialiased`}>
-        <Header />
+      <body className={`${poppins.className} antialiased bg-black dark`}>
         {children}
+        <Docker />
       </body>
     </html>
   );
