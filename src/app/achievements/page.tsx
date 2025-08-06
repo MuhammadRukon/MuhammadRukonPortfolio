@@ -1,4 +1,5 @@
 "use client";
+
 import PageContainer from "@/components/page-container/page-container";
 import { usePageTitle } from "@/hooks/usePageTitle";
 

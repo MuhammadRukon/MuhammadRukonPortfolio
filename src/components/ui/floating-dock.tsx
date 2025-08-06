@@ -22,10 +22,10 @@ export const FloatingDock = ({
   mobileClassName?: string;
 }) => {
   return (
-    <div className="z-99 fixed bottom-5 left-1/2 -translate-x-1/2">
+    <>
       <FloatingDockDesktop items={items} className={desktopClassName} />
       <FloatingDockMobile items={items} className={mobileClassName} />
-    </div>
+    </>
   );
 };
 
