@@ -1,7 +1,14 @@
 import PageContainer from "@/components/page-container/page-container";
+import { FlipWords } from "@/components/ui/flip-words";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 
 export default function Home() {
+  const words = [
+    "Software Engineer",
+    "Frontend Engineer",
+    "Frontend Developer",
+    "Full Stack Developer",
+  ];
   return (
     <div className="h-[100vh] flex items-center justify-center">
       <PageContainer page="RUKON">
@@ -10,7 +17,10 @@ export default function Home() {
           {/* TODO: */}
           {/* the title will have a text flip effect */}
           {/* https://ui.aceternity.com/components/container-text-flip */}
-          <p className="text-base md:text-xl mt-2">Software Engineer</p>
+          <div className="text-base md:text-xl mt-2">
+            <FlipWords words={words} />
+          </div>
+
           <p className="text-xs md:text-sm my-8">
             Other than coding, I love to take pictures, play football and video games.
           </p>

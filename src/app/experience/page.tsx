@@ -10,6 +10,7 @@ export default function Experience() {
   const data = [
     {
       title: "Flarie",
+      link: "https://flarie.com",
       content: (
         <div className="text-xs  md:text-sm">
           <p className="mb-8 font-normal text-neutral-800 leading-relaxed dark:text-neutral-200">
@@ -46,6 +47,7 @@ export default function Experience() {
     },
     {
       title: "Antopolis",
+      link: "https://antopolis.io",
       content: (
         <div className="text-xs  md:text-sm">
           <p className="mb-8 font-normal text-neutral-800 leading-relaxed dark:text-neutral-200">
@@ -67,6 +69,7 @@ export default function Experience() {
     },
     {
       title: "Squad Innovators",
+      link: "https://squadinnovators.com",
       content: (
         <div className="text-xs  md:text-sm">
           <p className="mb-8 font-normal text-neutral-800 leading-relaxed dark:text-neutral-200">
