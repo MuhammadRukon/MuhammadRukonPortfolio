@@ -9,8 +9,10 @@ import {
   useSpring,
   useTransform,
 } from "motion/react";
+import { usePathname } from "next/navigation";
 
 import { useRef, useState } from "react";
+import { GlowingEffect } from "./glowing-effect";
 
 export const FloatingDock = ({
   items,
@@ -37,6 +39,7 @@ const FloatingDockMobile = ({
   className?: string;
 }) => {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
   return (
     <div className={cn("relative block md:hidden", className)}>
       <AnimatePresence>
@@ -45,32 +48,47 @@ const FloatingDockMobile = ({
             layoutId="nav"
             className="absolute inset-x-0 bottom-full mb-2 flex flex-col gap-2"
           >
-            {items.map((item, idx) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                }}
-                exit={{
-                  opacity: 0,
-                  y: 10,
-                  transition: {
-                    delay: idx * 0.05,
-                  },
-                }}
-                transition={{ delay: (items.length - 1 - idx) * 0.05 }}
-              >
-                <a
-                  href={item.href}
+            {items.map((item, idx) => {
+              const isActive = pathname === item.href;
+              return (
+                <motion.div
                   key={item.title}
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-50 dark:bg-neutral-900"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                  }}
+                  exit={{
+                    opacity: 0,
+                    y: 10,
+                    transition: {
+                      delay: idx * 0.05,
+                    },
+                  }}
+                  transition={{ delay: (items.length - 1 - idx) * 0.05 }}
                 >
-                  <div className="h-4 w-4">{item.icon}</div>
-                </a>
-              </motion.div>
-            ))}
+                  <a
+                    href={item.href}
+                    key={item.title}
+                    className={cn(
+                      "flex h-10 w-10 items-center justify-center rounded-full bg-gray-50 dark:bg-neutral-900",
+                      isActive
+                        ? "bg-gray-200 dark:bg-neutral-800 border dark:border-neutral-700"
+                        : ""
+                    )}
+                  >
+                    <div
+                      className={cn(
+                        "h-4 w-4",
+                        isActive ? "text-white" : "text-neutral-400"
+                      )}
+                    >
+                      {item.icon}
+                    </div>
+                  </a>
+                </motion.div>
+              );
+            })}
           </motion.div>
         )}
       </AnimatePresence>
@@ -92,17 +110,32 @@ const FloatingDockDesktop = ({
   className?: string;
 }) => {
   const mouseX = useMotionValue(Infinity);
+  const pathname = usePathname();
   return (
     <motion.div
       onMouseMove={(e) => mouseX.set(e.pageX)}
       onMouseLeave={() => mouseX.set(Infinity)}
       className={cn(
-        "mx-auto hidden h-16 items-end gap-4 rounded-2xl bg-gray-50 px-4 pb-3 md:flex dark:bg-neutral-900 dark:border-neutral-700 border",
+        "mx-auto hidden h-16 items-end gap-4 rounded-2xl  px-4 pb-3 md:flex bg-gray-50 dark:bg-neutral-950 dark:border-neutral-700 border",
         className
       )}
     >
+      <GlowingEffect
+        blur={0}
+        borderWidth={2}
+        spread={80}
+        glow={true}
+        disabled={false}
+        proximity={80}
+        inactiveZone={0.01}
+      />
       {items.map((item) => (
-        <IconContainer mouseX={mouseX} key={item.title} {...item} />
+        <IconContainer
+          mouseX={mouseX}
+          key={item.title}
+          {...item}
+          isActive={pathname === item.href}
+        />
       ))}
     </motion.div>
   );
@@ -113,11 +146,13 @@ function IconContainer({
   title,
   icon,
   href,
+  isActive,
 }: {
   mouseX: MotionValue;
   title: string;
   icon: React.ReactNode;
   href: string;
+  isActive: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -158,35 +193,49 @@ function IconContainer({
   const [hovered, setHovered] = useState(false);
 
   return (
-    <div className="shadow-[0_0_20px_rgba(0,0,0,1)] rounded-full">
-      <a href={href}>
+    <a href={href} className="relative">
+      <motion.div
+        ref={ref}
+        style={{ width, height }}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        className={cn(
+          "relative flex aspect-square items-center justify-center rounded-full  border bg-gray-200 dark:border-neutral-700 dark:bg-black",
+          isActive ? "dark:bg-neutral-900" : ""
+        )}
+      >
+        <AnimatePresence>
+          {hovered && (
+            <motion.div
+              initial={{ opacity: 0, y: 10, x: "-50%" }}
+              animate={{ opacity: 1, y: 0, x: "-50%" }}
+              exit={{ opacity: 0, y: 2, x: "-50%" }}
+              className="absolute -top-8 left-1/2 w-fit rounded-md border border-gray-200 bg-gray-100 px-2 py-0.5 text-xs whitespace-pre text-neutral-700 dark:border-neutral-900 dark:bg-neutral-800 dark:text-white"
+            >
+              {title}
+            </motion.div>
+          )}
+        </AnimatePresence>
         <motion.div
-          ref={ref}
-          style={{ width, height }}
-          onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => setHovered(false)}
-          className="relative flex aspect-square items-center justify-center rounded-full bg-gray-200 dark:bg-neutral-600 shadow-[inset_0_0_10px_black]"
+          style={{ width: widthIcon, height: heightIcon }}
+          className={cn(
+            "flex items-center justify-center",
+            isActive ? "text-white" : "text-neutral-500"
+          )}
         >
-          <AnimatePresence>
-            {hovered && (
-              <motion.div
-                initial={{ opacity: 0, y: 10, x: "-50%" }}
-                animate={{ opacity: 1, y: 0, x: "-50%" }}
-                exit={{ opacity: 0, y: 2, x: "-50%" }}
-                className="absolute -top-8 left-1/2 w-fit rounded-md border border-gray-200 bg-gray-100 px-2 py-0.5 text-xs whitespace-pre text-neutral-700 dark:border-neutral-900 dark:bg-neutral-800 dark:text-white"
-              >
-                {title}
-              </motion.div>
-            )}
-          </AnimatePresence>
-          <motion.div
-            style={{ width: widthIcon, height: heightIcon }}
-            className="flex items-center justify-center"
-          >
-            {icon}
-          </motion.div>
+          {isActive && (
+            <motion.div
+              style={{ width: width, height: height }}
+              className="inset-[-1000%] absolute top-[-1px] scale-105 z-[-1] left-[-1px] w-10 h-10 rounded-full animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#8b5cf6cc_0%,#ef4444cc_25%,#3b82f6cc_50%,#06b6d4cc_75%,#8b5cf6cc_100%)]
+
+
+
+"
+            ></motion.div>
+          )}
+          {icon}
         </motion.div>
-      </a>
-    </div>
+      </motion.div>
+    </a>
   );
 }
