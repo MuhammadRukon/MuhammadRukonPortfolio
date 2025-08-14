@@ -4,7 +4,7 @@ import Disappoint from "../disappoint/disappoint";
 
 export default function PageContainer({ page, children }: PageContainerProps) {
   return (
-    <div className="h-[95vh] w-full flex items-center justify-center relative text-white p-10">
+    <div className="min-h-[95vh] w-full flex items-center justify-center relative text-white p-10">
       <div className="w-full h-full absolute top-0 left-0">
         <TextHoverEffect text={page} />
       </div>
