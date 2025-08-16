@@ -1,6 +1,7 @@
 "use client";
 import PageContainer from "@/components/page-container/page-container";
 import { ScrollDown } from "@/components/scroll-down/scroll-down";
+import { BackgroundGradient } from "@/components/ui/background-gradient";
 import { TracingBeam } from "@/components/ui/tracing-beam";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { capitalize } from "@/lib/utils";
@@ -41,7 +42,7 @@ export default function Skills() {
       <PageContainer page={pageTitle}>
         <ScrollDown />
       </PageContainer>
-      <div className="-mt-30">
+      <div className="-mt-30 overflow-clip">
         <TracingBeam>
           <div className="h-[120px] sm:h-[300px]" />
         </TracingBeam>
@@ -79,7 +80,7 @@ function TabContainer({
       icon: <IconBrandCpp className={className} />,
     },
     {
-      name: "React",
+      name: "React.js",
       type: "frontend",
       icon: <IconBrandReact className={className} />,
     },
@@ -89,7 +90,7 @@ function TabContainer({
       icon: <IconBrandNextjs className={className} />,
     },
     {
-      name: "Tailwind CSS",
+      name: "Tailwind",
       type: "frontend",
       icon: <IconBrandTailwind className={className} />,
     },
@@ -109,11 +110,7 @@ function TabContainer({
       type: "backend",
       icon: <IconBrandMongodb className={className} />,
     },
-    {
-      name: "Redux Toolkit",
-      type: "frontend",
-      icon: <IconBrandRedux className={className} />,
-    },
+
     {
       name: "Git",
       type: "others",
@@ -129,11 +126,7 @@ function TabContainer({
       type: "frontend",
       icon: <IconBrandCss3 className={className} />,
     },
-    {
-      name: "Styled Components",
-      type: "frontend",
-      icon: <IconBrandCss3 className={className} />,
-    },
+
     {
       name: "Zustand",
       type: "frontend",
@@ -170,11 +163,7 @@ function TabContainer({
       type: "others",
       icon: <IconBrandReactNative className={className} />,
     },
-    {
-      name: "REST API",
-      type: "others",
-      icon: <IconBrandLine className={className} />,
-    },
+
     {
       name: "Mongoose",
       type: "backend",
@@ -185,11 +174,7 @@ function TabContainer({
       type: "others",
       icon: <IconBrandGit className={className} />,
     },
-    {
-      name: "BitBucket",
-      type: "others",
-      icon: <IconBrandGit className={className} />,
-    },
+
     {
       name: "Vitest",
       type: "others",
@@ -199,6 +184,11 @@ function TabContainer({
       name: "Jest",
       type: "others",
       icon: <IconBrandVite className={className} />,
+    },
+    {
+      name: "Redux Toolkit",
+      type: "frontend",
+      icon: <IconBrandRedux className={className} />,
     },
     {
       name: "Jira",
@@ -217,8 +207,23 @@ function TabContainer({
     },
     {
       name: "Storybook",
-      type: "others",
+      type: "frontend",
       icon: <IconBrandStorybook className={className} />,
+    },
+    {
+      name: "Styled Components",
+      type: "frontend",
+      icon: <IconBrandCss3 className={className} />,
+    },
+    {
+      name: "BitBucket",
+      type: "others",
+      icon: <IconBrandGit className={className} />,
+    },
+    {
+      name: "REST API",
+      type: "others",
+      icon: <IconBrandLine className={className} />,
     },
   ];
   return (
@@ -235,9 +240,14 @@ function TabContainer({
 
 function SkillTab({ skill }: { skill: ISkill }) {
   return (
-    <div className="flex gap-1 items-center justify-self-center justify-center border-1 w-fit px-2 py-1.5 rounded-md bg-black">
-      {skill.icon}
-      <p className="text-[10px] sm:text-xs">{skill.name}</p>
-    </div>
+    <BackgroundGradient
+      className="rounded-md"
+      containerClassName="rounded-md bg-white dark:bg-zinc-900 w-fit mx-auto"
+    >
+      <div className="flex gap-1 items-center border-1 w-fit px-2 py-1.5 rounded-md bg-black">
+        {skill.icon}
+        <p className="text-[10px] sm:text-xs text-nowrap">{skill.name}</p>
+      </div>
+    </BackgroundGradient>
   );
 }
