@@ -1,4 +1,5 @@
 "use client";
+import { useResponsive } from "@/hooks/useResponsive";
 import { motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
@@ -14,18 +15,27 @@ export const TextHoverEffect = ({
   const [cursor, setCursor] = useState({ x: 0, y: 0 });
   const [hovered, setHovered] = useState(false);
   const [maskPosition, setMaskPosition] = useState({ cx: "50%", cy: "50%" });
+  const { isMobile } = useResponsive();
 
   useEffect(() => {
     if (svgRef.current && cursor.x !== null && cursor.y !== null) {
       const svgRect = svgRef.current.getBoundingClientRect();
       const cxPercentage = ((cursor.x - svgRect.left) / svgRect.width) * 100;
       const cyPercentage = ((cursor.y - svgRect.top) / svgRect.height) * 100;
-      setMaskPosition({
-        cx: `${cxPercentage}%`,
-        cy: `${cyPercentage}%`,
-      });
+      if (!isMobile) {
+        setMaskPosition({
+          cx: `${cxPercentage}%`,
+          cy: `${cyPercentage}%`,
+        });
+      }
     }
-  }, [cursor]);
+  }, [cursor, isMobile]);
+
+  useEffect(() => {
+    if (isMobile) {
+      setMaskPosition({ cx: "50%", cy: "50%" });
+    }
+  }, [isMobile]);
 
   return (
     <svg
@@ -47,21 +57,19 @@ export const TextHoverEffect = ({
           cy="50%"
           r="25%"
         >
-          {hovered && (
-            <>
-              <stop offset="0%" stopColor="#eab308" />
-              <stop offset="25%" stopColor="#ef4444" />
-              <stop offset="50%" stopColor="#3b82f6" />
-              <stop offset="75%" stopColor="#06b6d4" />
-              <stop offset="100%" stopColor="#8b5cf6" />
-            </>
-          )}
+          <>
+            <stop offset="0%" stopColor="#eab308" />
+            <stop offset="25%" stopColor="#ef4444" />
+            <stop offset="50%" stopColor="#3b82f6" />
+            <stop offset="75%" stopColor="#06b6d4" />
+            <stop offset="100%" stopColor="#8b5cf6" />
+          </>
         </linearGradient>
 
         <motion.radialGradient
           id="revealMask"
           gradientUnits="userSpaceOnUse"
-          r="20%"
+          r={isMobile ? "100%" : "20%"}
           initial={{ cx: "50%", cy: "50%" }}
           animate={maskPosition}
           transition={{ duration: duration ?? 0, ease: "easeOut" }}

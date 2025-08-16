@@ -1,6 +1,9 @@
 "use client";
 import PageContainer from "@/components/page-container/page-container";
+import { ScrollDown } from "@/components/scroll-down/scroll-down";
+import { TracingBeam } from "@/components/ui/tracing-beam";
 import { usePageTitle } from "@/hooks/usePageTitle";
+import { capitalize } from "@/lib/utils";
 import {
   IconBrandCpp,
   IconBrandCss3,
@@ -32,6 +35,32 @@ export interface ISkill {
 
 export default function Skills() {
   const pageTitle = usePageTitle();
+
+  return (
+    <>
+      <PageContainer page={pageTitle}>
+        <ScrollDown />
+      </PageContainer>
+      <div className="-mt-30">
+        <TracingBeam>
+          <div className="h-[120px] sm:h-[300px]" />
+        </TracingBeam>
+        <div className="grid grid-cols-4 gap-4 w-full text-center mt-10 max-w-[400px] sm:max-w-[520px] mx-auto pb-40">
+          <TabContainer type="language" />
+          <TabContainer type="frontend" />
+          <TabContainer type="backend" />
+          <TabContainer type="others" />
+        </div>
+      </div>
+    </>
+  );
+}
+
+function TabContainer({
+  type,
+}: {
+  type: "language" | "frontend" | "backend" | "others";
+}) {
   const className = "w-4 sm:w-5 h-4 sm:h-5";
   const skills: ISkill[] = [
     {
@@ -193,50 +222,22 @@ export default function Skills() {
     },
   ];
   return (
-    <PageContainer page={pageTitle}>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        <div className="space-y-2">
-          <h2 className="text-lg font-bold pl-1">Languages</h2>
-          {skills
-            .filter((skill) => skill.type === "language")
-            .map((skill) => (
-              <SkillTab key={skill.name} skill={skill} />
-            ))}
-        </div>
-        <div className="space-y-2">
-          <h2 className="text-lg font-bold pl-1">Frontend</h2>
-          {skills
-            .filter((skill) => skill.type === "frontend")
-            .map((skill) => (
-              <SkillTab key={skill.name} skill={skill} />
-            ))}
-        </div>
-        <div className="space-y-2">
-          <h2 className="text-lg font-bold pl-1">Backend</h2>
-          {skills
-            .filter((skill) => skill.type === "backend")
-            .map((skill) => (
-              <SkillTab key={skill.name} skill={skill} />
-            ))}
-        </div>
-        <div className="space-y-2">
-          <h2 className="text-lg font-bold pl-1">Others</h2>
-          {skills
-            .filter((skill) => skill.type === "others")
-            .map((skill) => (
-              <SkillTab key={skill.name} skill={skill} />
-            ))}
-        </div>
-      </div>
-    </PageContainer>
+    <div className="space-y-2">
+      <h2 className="text-xs sm:text-sm font-bold pl-1">{capitalize(type)}</h2>
+      {skills
+        .filter((skill) => skill.type === type)
+        .map((skill) => (
+          <SkillTab key={skill.name} skill={skill} />
+        ))}
+    </div>
   );
 }
 
 function SkillTab({ skill }: { skill: ISkill }) {
   return (
-    <div className="flex gap-1 items-center justify-center border-1 w-fit px-2 py-1.5 rounded-md bg-black">
+    <div className="flex gap-1 items-center justify-self-center justify-center border-1 w-fit px-2 py-1.5 rounded-md bg-black">
       {skill.icon}
-      <p className="text-xs sm:text-sm">{skill.name}</p>
+      <p className="text-[10px] sm:text-xs">{skill.name}</p>
     </div>
   );
 }

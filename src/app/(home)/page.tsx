@@ -21,7 +21,7 @@ export default function Home() {
             <FlipWords words={words} />
           </div>
 
-          <p className="text-xs md:text-sm my-8">
+          <p className="text-xs sm:text-sm my-8">
             Other than coding, I love to take pictures, play football and video games.
           </p>
           {/* TODO: */}
@@ -35,7 +35,7 @@ export default function Home() {
             <HoverBorderGradient
               containerClassName="rounded-full cursor-pointer"
               as="button"
-              className="dark:bg-black bg-white text-black dark:text-white flex items-center space-x-2 text-xs md:text-sm"
+              className="dark:bg-black bg-white text-black dark:text-white flex items-center space-x-2 text-xs sm:text-sm"
             >
               <span>Download Resume</span>
             </HoverBorderGradient>
