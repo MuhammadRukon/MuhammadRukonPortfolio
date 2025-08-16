@@ -23,6 +23,7 @@ import {
   IconBrandVercel,
   IconBrandVite,
 } from "@tabler/icons-react";
+import { useRef, useState, useEffect } from "react";
 
 export interface ISkill {
   name: string;
@@ -32,6 +33,10 @@ export interface ISkill {
 
 export default function Skills() {
   const pageTitle = usePageTitle();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef2 = useRef<HTMLDivElement>(null);
+  const containerRef3 = useRef<HTMLDivElement>(null);
+
   const className = "w-4 sm:w-5 h-4 sm:h-5";
   const skills: ISkill[] = [
     {
@@ -194,38 +199,64 @@ export default function Skills() {
   ];
   return (
     <PageContainer page={pageTitle}>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        <div className="space-y-2">
+      <div className=" grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div>
           <h2 className="text-lg font-bold pl-1">Languages</h2>
-          {skills
-            .filter((skill) => skill.type === "language")
-            .map((skill) => (
-              <SkillTab key={skill.name} skill={skill} />
-            ))}
+          <div
+            onDragOver={(e) => {
+              e.preventDefault();
+            }}
+            ref={containerRef}
+            className="relative space-y-2"
+          >
+            {skills
+              .filter((skill) => skill.type === "language")
+              .map((skill) => (
+                <SkillTab key={skill.name} skill={skill} />
+              ))}
+          </div>
         </div>
-        <div className="space-y-2">
+        <div>
           <h2 className="text-lg font-bold pl-1">Frontend</h2>
-          {skills
-            .filter((skill) => skill.type === "frontend")
-            .map((skill) => (
-              <SkillTab key={skill.name} skill={skill} />
-            ))}
+          <div
+            onDragOver={(e) => {
+              e.preventDefault();
+            }}
+            ref={containerRef2}
+            className="relative space-y-2"
+          >
+            {skills
+              .filter((skill) => skill.type === "frontend")
+              .map((skill) => (
+                <SkillTab key={skill.name} skill={skill} />
+              ))}
+          </div>
         </div>
-        <div className="space-y-2">
+        <div>
           <h2 className="text-lg font-bold pl-1">Backend</h2>
-          {skills
-            .filter((skill) => skill.type === "backend")
-            .map((skill) => (
-              <SkillTab key={skill.name} skill={skill} />
-            ))}
+          <div
+            ref={containerRef3}
+            onDragOver={(e) => {
+              e.preventDefault();
+            }}
+            className="relative space-y-2"
+          >
+            {skills
+              .filter((skill) => skill.type === "backend")
+              .map((skill) => (
+                <SkillTab key={skill.name} skill={skill} />
+              ))}
+          </div>
         </div>
-        <div className="space-y-2">
+        <div>
           <h2 className="text-lg font-bold pl-1">Others</h2>
-          {skills
-            .filter((skill) => skill.type === "others")
-            .map((skill) => (
-              <SkillTab key={skill.name} skill={skill} />
-            ))}
+          <div className="space-y-2">
+            {skills
+              .filter((skill) => skill.type === "others")
+              .map((skill) => (
+                <SkillTab key={skill.name} skill={skill} />
+              ))}
+          </div>
         </div>
       </div>
     </PageContainer>
@@ -233,8 +264,76 @@ export default function Skills() {
 }
 
 function SkillTab({ skill }: { skill: ISkill }) {
+  const [isDragging, setIsDragging] = useState(false);
+  const [pos, setPos] = useState<{
+    top: number;
+    left: number;
+  }>({ top: 0, left: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isDragging) return;
+
+      setPos((prev) => ({
+        top: prev.top + e.movementY,
+        left: prev.left + e.movementX,
+      }));
+    };
+
+    const handleMouseUp = (e: MouseEvent) => {
+      const parent = (e.target as HTMLElement).parentElement;
+      const arrayOfNodes = Array.from(parent?.childNodes || []);
+      const currentRect = (e.target as HTMLElement).getBoundingClientRect();
+      const currentRectMid = currentRect.width / 2 + currentRect.height / 2;
+
+      for (let i = 0; i < arrayOfNodes.length; i++) {
+        const rect = (arrayOfNodes[i] as HTMLElement).getBoundingClientRect();
+        const nodeMid = rect.width / 2 + rect.height / 2;
+        console.log(nodeMid, currentRectMid);
+        if (currentRectMid < nodeMid) {
+          console.log("insert before");
+          parent?.insertBefore(e.target as Node, arrayOfNodes[i] as Node);
+        } else {
+          console.log("append");
+          parent?.appendChild(e.target as Node);
+        }
+        return;
+      }
+
+      setIsDragging(false);
+    };
+
+    if (isDragging) {
+      window.addEventListener("mousemove", handleMouseMove);
+      window.addEventListener("mouseup", handleMouseUp);
+    }
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, [isDragging]);
+
   return (
-    <div className="flex gap-1 items-center justify-center border-1 w-fit px-2 py-1.5 rounded-md bg-black">
+    <div
+      style={
+        isDragging
+          ? {
+              position: "fixed",
+              top: pos.top,
+              left: pos.left,
+              zIndex: 1000,
+              cursor: "grabbing",
+            }
+          : undefined
+      }
+      onMouseDown={(e) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        setPos({ top: rect.top, left: rect.left });
+        setIsDragging(true);
+      }}
+      className="flex cursor-grab gap-1 items-center justify-center border-1 w-fit px-2 py-1.5 rounded-md bg-black"
+    >
       {skill.icon}
       <p className="text-xs sm:text-sm">{skill.name}</p>
     </div>

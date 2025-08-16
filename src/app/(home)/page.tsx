@@ -14,9 +14,7 @@ export default function Home() {
       <PageContainer page="RUKON">
         <div className="text-white text-center flex flex-col items-center justify-center">
           <h1 className=" text-2xl md:text-4xl font-bold">Muhammad Sheikh Rukon</h1>
-          {/* TODO: */}
-          {/* the title will have a text flip effect */}
-          {/* https://ui.aceternity.com/components/container-text-flip */}
+          
           <div className="text-base md:text-xl mt-2">
             <FlipWords words={words} />
           </div>

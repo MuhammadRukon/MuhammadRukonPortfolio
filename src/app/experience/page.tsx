@@ -53,7 +53,7 @@ export default function Experience() {
           <p className="mb-8 font-normal text-neutral-800 leading-relaxed dark:text-neutral-200">
             Dhaka, Bangladesh (Onsite)
             <br />
-            Aug 2024 - Feb 2025
+            Apr 2024 - Feb 2025
           </p>
           <ol className="list-disc list-outside space-y-1">
             <li>Delivered MERN-based projects by collaborating with the UI/UX team.</li>
@@ -63,26 +63,6 @@ export default function Experience() {
             <li>Reviewed codes and provided feedbacks.</li>
             <li>Created frontend starter template to save time doing repetitive work.</li>
             <li>Built multiple reusable components.</li>
-          </ol>
-        </div>
-      ),
-    },
-    {
-      title: "Squad Innovators",
-      link: "https://squadinnovators.com",
-      content: (
-        <div className="text-xs  md:text-sm">
-          <p className="mb-8 font-normal text-neutral-800 leading-relaxed dark:text-neutral-200">
-            Dhaka, Bangladesh (Onsite)
-            <br />
-            Jan 2024 - April 2024
-          </p>
-          <ol className="list-disc list-outside space-y-1">
-            <li>
-              Delivered core POS features, ensuring responsiveness, including sales and
-              purchase billing and invoice and PDF generation.
-            </li>
-            <li>Collaborated with the UI/UX and backend teams.</li>
           </ol>
         </div>
       ),
