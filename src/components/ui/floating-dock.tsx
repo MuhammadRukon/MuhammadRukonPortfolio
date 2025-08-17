@@ -196,11 +196,19 @@ function IconContainer({
     <a href={href} className="relative">
       <motion.div
         ref={ref}
+        initial={{
+          color: "#3f3f3f",
+          borderColor: "#3f3f3f",
+        }}
+        animate={{
+          color: hovered || isActive ? "#ffffff" : "#3f3f3f",
+          borderColor: hovered && !isActive ? "#ffffff" : "#3f3f3f",
+        }}
         style={{ width, height }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         className={cn(
-          "relative flex aspect-square items-center justify-center rounded-full  border bg-gray-200 dark:border-neutral-700 dark:bg-black",
+          "relative flex aspect-square items-center justify-center rounded-full  border bg-gray-200 dark:bg-black",
           isActive ? "dark:bg-neutral-900" : ""
         )}
       >
@@ -218,19 +226,12 @@ function IconContainer({
         </AnimatePresence>
         <motion.div
           style={{ width: widthIcon, height: heightIcon }}
-          className={cn(
-            "flex items-center justify-center",
-            isActive ? "text-white" : "text-neutral-500"
-          )}
+          className={cn("flex items-center justify-center")}
         >
           {isActive && (
             <motion.div
               style={{ width: width, height: height }}
-              className="inset-[-1000%] absolute top-[-1px] scale-105 z-[-1] left-[-1px] w-10 h-10 rounded-full animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#8b5cf6cc_0%,#ef4444cc_25%,#3b82f6cc_50%,#06b6d4cc_75%,#8b5cf6cc_100%)]
-
-
-
-"
+              className="inset-[-1000%] absolute top-[-1px] scale-105 z-[-1] left-[-1px] w-10 h-10 rounded-full animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#8b5cf6cc_0%,#ef4444cc_25%,#3b82f6cc_50%,#06b6d4cc_75%,#8b5cf6cc_100%)]"
             ></motion.div>
           )}
           {icon}

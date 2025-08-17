@@ -76,8 +76,8 @@ export default function Experience() {
             Career as a Software Engineer
           </h2>
           <p className="text-neutral-700 dark:text-neutral-300 text-sm md:text-base ">
-            With over one and a half years of experience working both locally and
-            internationally. Here&apos;s a timeline of my journey.
+            With almost <strong>2 years of experience</strong> working both locally and
+            internationally, here&apos;s a timeline of my journey...
           </p>
           <ScrollDown />
         </div>

@@ -5,5 +5,9 @@ import { usePageTitle } from "@/hooks/usePageTitle";
 export default function Blogs() {
   const pageTitle = usePageTitle();
 
-  return <PageContainer page={pageTitle} />;
+  return (
+    <PageContainer page={pageTitle}>
+      <p className="text-center">This page will air soon when I get rich and famous.</p>
+    </PageContainer>
+  );
 }

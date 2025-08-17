@@ -20,6 +20,18 @@ export const TextHoverEffect = ({
   const { isMobile } = useResponsive();
 
   useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isMobile) setCursor({ x: e.clientX, y: e.clientY });
+    };
+
+    document.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
+
+  useEffect(() => {
     if (svgRef.current && cursor.x !== null && cursor.y !== null) {
       const svgRect = svgRef.current.getBoundingClientRect();
       if (!isMobile) {
@@ -44,7 +56,6 @@ export const TextHoverEffect = ({
       xmlns="http://www.w3.org/2000/svg"
       // onMouseEnter={() => setHovered(true)}
       // onMouseLeave={() => setHovered(false)}
-      onMouseMove={(e) => setCursor({ x: e.clientX, y: e.clientY })}
       style={{
         opacity: isHomePage && isMobile ? 0.4 : 1,
       }}

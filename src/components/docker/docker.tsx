@@ -2,11 +2,11 @@
 
 import { FloatingDock } from "../ui/floating-dock";
 import {
+  IconArticle,
   IconBrandGithub,
   IconBrandLinkedin,
   IconBriefcase,
   IconHome,
-  IconMedal,
   IconSchool,
   IconStack2,
   IconUserCog,
@@ -30,11 +30,6 @@ export function Docker() {
       href: "/skills",
       icon: <IconUserCog className={iconClassName} />,
     },
-    // {
-    //   title: "About",
-    //   href: "/about",
-    //   icon: <IconUser className={iconClassName} />,
-    // },
     {
       title: "GitHub",
       icon: <IconBrandGithub className={iconClassName} />,
@@ -56,9 +51,9 @@ export function Docker() {
       href: "/education",
     },
     {
-      title: "Achievements",
-      icon: <IconMedal className={iconClassName} />,
-      href: "/achievements",
+      title: "Blogs",
+      href: "/blogs",
+      icon: <IconArticle className={iconClassName} />,
     },
   ];
 
