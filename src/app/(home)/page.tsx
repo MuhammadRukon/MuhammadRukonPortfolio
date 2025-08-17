@@ -1,6 +1,8 @@
+import { HireMeModal } from "@/components/modal/HireMeModal";
 import PageContainer from "@/components/page-container/page-container";
 import { FlipWords } from "@/components/ui/flip-words";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
+import { cn } from "@/lib/utils";
 
 export default function Home() {
   const words = [
@@ -9,14 +11,13 @@ export default function Home() {
     "Frontend Developer",
     "Full Stack Developer",
   ];
+  const buttonClassName =
+    "dark:bg-black bg-white text-black dark:text-white flex items-center space-x-2 text-xs sm:text-sm";
   return (
     <div className="h-[100vh] flex items-center justify-center">
       <PageContainer page="RUKON">
         <div className="text-white text-center flex flex-col items-center justify-center">
           <h1 className=" text-2xl md:text-4xl font-bold">Muhammad Sheikh Rukon</h1>
-          {/* TODO: */}
-          {/* the title will have a text flip effect */}
-          {/* https://ui.aceternity.com/components/container-text-flip */}
           <div className="text-base md:text-xl mt-2">
             <FlipWords words={words} />
           </div>
@@ -24,22 +25,32 @@ export default function Home() {
           <p className="text-xs sm:text-sm my-8">
             Other than coding, I love to take pictures, play football and video games.
           </p>
-          {/* TODO: */}
-          {/* Add another button for hire me modal */}
 
-          {/* https://ui.aceternity.com/components/glowing-effect */}
-          <a
-            href="/Software_Engineer_Muhammad_Sheikh_Rukon.pdf"
-            download="Software_Engineer_Muhammad_Sheikh_Rukon.pdf"
-          >
-            <HoverBorderGradient
-              containerClassName="rounded-full cursor-pointer"
-              as="button"
-              className="dark:bg-black bg-white text-black dark:text-white flex items-center space-x-2 text-xs sm:text-sm"
+          <div className="flex items-center space-x-2">
+            <button
+              className={cn(
+                buttonClassName,
+                "relative inline-flex overflow-hidden rounded-full"
+              )}
             >
-              <span>Download Resume</span>
-            </HoverBorderGradient>
-          </a>
+              <span className="absolute " />
+
+              <HireMeModal />
+            </button>
+
+            <a
+              href="/Software_Engineer_Muhammad_Sheikh_Rukon.pdf"
+              download="Software_Engineer_Muhammad_Sheikh_Rukon.pdf"
+            >
+              <HoverBorderGradient
+                containerClassName="rounded-full cursor-pointer"
+                as="button"
+                className={buttonClassName}
+              >
+                <span>Download Resume</span>
+              </HoverBorderGradient>
+            </a>
+          </div>
         </div>
       </PageContainer>
     </div>
