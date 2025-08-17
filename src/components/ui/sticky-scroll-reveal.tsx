@@ -31,7 +31,7 @@ export const StickyScroll = ({
     const cardsBreakpoints = content.map((_, index) => index / cardLength);
     const closestBreakpointIndex = cardsBreakpoints.reduce((acc, breakpoint, index) => {
       const distance = Math.abs(latest - breakpoint);
-      if (distance < Math.abs(latest - cardsBreakpoints[acc])) {
+      if (distance - 0.08 < Math.abs(latest - cardsBreakpoints[acc])) {
         return index;
       }
       return acc;
@@ -76,7 +76,7 @@ export const StickyScroll = ({
           // backgroundColor: backgroundColors[activeCard % backgroundColors.length],
         }
       }
-      className="relative flex h-[30rem] bg-white/5 backdrop-blur-sm justify-center space-x-10 overflow-y-auto rounded-md p-10 "
+      className="relative flex h-[30rem] bg-neutral-900 justify-center space-x-10 overflow-y-auto rounded-md p-10 "
       ref={ref}
     >
       <div className="div relative flex items-start px-4">
@@ -102,7 +102,7 @@ export const StickyScroll = ({
                 animate={{
                   opacity: activeCard === index ? 1 : 0.3,
                 }}
-                className="text-2xl font-bold text-slate-100"
+                className="text-lg sm:text-2xl font-bold text-slate-100"
               >
                 <a
                   href={item.link}
@@ -120,7 +120,7 @@ export const StickyScroll = ({
                 animate={{
                   opacity: activeCard === index ? 1 : 0.3,
                 }}
-                className="text-sm mt-1 max-w-sm text-slate-300"
+                className="text-xs sm:text-sm mt-1 max-w-sm text-slate-300"
               >
                 {item.subtitle}
               </motion.p>
@@ -131,7 +131,7 @@ export const StickyScroll = ({
                 animate={{
                   opacity: activeCard === index ? 1 : 0.3,
                 }}
-                className="text-sm mt-4 max-w-sm text-slate-300 list-disc"
+                className="text-xs sm:text-sm mt-4 max-w-sm text-slate-300 list-disc list-outside space-y-1.5"
               >
                 {item.description}
               </motion.ol>
@@ -152,7 +152,7 @@ export const StickyScroll = ({
         }}
         style={{ background: backgroundGradient }}
         className={cn(
-          "sticky top-10 hidden h-60 w-80 overflow-hidden rounded-md bg-white lg:block",
+          "sticky top-10 hidden h-72 w-96 overflow-hidden rounded-md bg-white lg:block",
           contentClassName
         )}
       >

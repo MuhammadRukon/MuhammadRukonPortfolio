@@ -7,7 +7,9 @@ export default function Blogs() {
 
   return (
     <PageContainer page={pageTitle}>
-      <p className="text-center">This page will air soon when I get rich and famous.</p>
+      <p className="text-center">
+        This page will be available as soon as I get rich  and famous.
+      </p>
     </PageContainer>
   );
 }

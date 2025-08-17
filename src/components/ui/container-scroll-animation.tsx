@@ -18,12 +18,18 @@ export const ContainerScroll = ({
 
   React.useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 640);
+      if (typeof window !== "undefined") {
+        setIsMobile(window.innerWidth <= 640);
+      }
     };
     checkMobile();
-    window.addEventListener("resize", checkMobile);
+    if (typeof window !== "undefined") {
+      window.addEventListener("resize", checkMobile);
+    }
     return () => {
-      window.removeEventListener("resize", checkMobile);
+      if (typeof window !== "undefined") {
+        window.removeEventListener("resize", checkMobile);
+      }
     };
   }, []);
 
@@ -31,7 +37,7 @@ export const ContainerScroll = ({
     return isMobile ? [0.7, 0.9] : [1.05, 1];
   };
 
-  const rotate = useTransform(scrollYProgress, [0, 0.5, 1], [30, 0, 0]);
+  const rotate = useTransform(scrollYProgress, [0, 0.5, 1], [40, 0, 0]);
   const scale = useTransform(scrollYProgress, [0, 1], scaleDimensions());
   const translate = useTransform(scrollYProgress, [0, 1], [0, -50]);
 
@@ -54,7 +60,7 @@ export const ContainerScroll = ({
     </div>
   );
 };
-
+//eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const Header = ({ translate, titleComponent }: any) => {
   return (
     <motion.div
