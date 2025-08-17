@@ -6,10 +6,12 @@ import { useEffect, useRef, useState } from "react";
 export const TextHoverEffect = ({
   text,
   duration,
+  isHomePage = true,
 }: {
   text: string;
   duration?: number;
   automatic?: boolean;
+  isHomePage?: boolean;
 }) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const [cursor, setCursor] = useState({ x: 0, y: 0 });
@@ -43,6 +45,9 @@ export const TextHoverEffect = ({
       // onMouseEnter={() => setHovered(true)}
       // onMouseLeave={() => setHovered(false)}
       onMouseMove={(e) => setCursor({ x: e.clientX, y: e.clientY })}
+      style={{
+        opacity: isHomePage && isMobile ? 0.4 : 1,
+      }}
       className="select-none"
     >
       <defs>
@@ -90,8 +95,8 @@ export const TextHoverEffect = ({
         y="50%"
         textAnchor="middle"
         dominantBaseline="middle"
-        strokeWidth="0.3"
-        className="fill-transparent stroke-neutral-900 font-[poppins] text-7xl font-bold dark:stroke-neutral-900"
+        strokeWidth={isMobile ? "0.5" : "0.3"}
+        className={`fill-transparent stroke-neutral-900 ${isHomePage ?? "opacity-50"} font-[poppins] text-7xl font-bold dark:stroke-neutral-900`}
         initial={{ strokeDashoffset: 1000, strokeDasharray: 1000 }}
         animate={{
           strokeDashoffset: 0,
@@ -110,9 +115,9 @@ export const TextHoverEffect = ({
         textAnchor="middle"
         dominantBaseline="middle"
         stroke="url(#textGradient)"
-        strokeWidth="0.3"
+        strokeWidth={isMobile ? "0.5" : "0.3"}
         mask="url(#textMask)"
-        className="fill-transparent font-[poppins] text-7xl font-bold"
+        className={`fill-transparent font-[poppins] text-7xl font-bold ${isHomePage ?? "opacity-50"}`}
       >
         {text}
       </text>

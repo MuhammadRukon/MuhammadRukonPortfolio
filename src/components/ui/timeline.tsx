@@ -3,6 +3,7 @@ import { IconExternalLink } from "@tabler/icons-react";
 import { useScroll, useTransform, motion } from "motion/react";
 import React, { useEffect, useRef, useState } from "react";
 import { LinkPreview } from "./link-preview";
+import { useResponsive } from "@/hooks/useResponsive";
 
 interface TimelineEntry {
   title: string;
@@ -14,6 +15,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
   const ref = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState(0);
+  const isMobile = useResponsive();
 
   useEffect(() => {
     if (ref.current) {
@@ -24,7 +26,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start 15%", "end 50%"],
+    offset: [isMobile ? "start 50%" : "start 40%", "end 60%"],
   });
 
   const heightTransform = useTransform(scrollYProgress, [0, 1], [0, height]);
@@ -39,7 +41,9 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
         {data.map((item, index) => {
           return (
             <div key={index} className="flex justify-start pt-10 md:pt-40 md:gap-10">
-              <div className="sticky flex flex-col md:flex-row z-40 items-center top-40 self-start max-w-xs lg:max-w-sm md:w-full">
+              <div
+                className={`sticky flex flex-col md:flex-row z-40 items-center ${isMobile ? "top-96" : "top-80"} self-start max-w-xs lg:max-w-sm md:w-full`}
+              >
                 <div className="h-10 absolute left-3 md:left-3 w-10 rounded-full bg-white dark:bg-black flex items-center justify-center">
                   <div className="h-4 w-4 rounded-full bg-neutral-200 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 p-2" />
                 </div>
