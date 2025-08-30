@@ -53,11 +53,11 @@ export default function Achievements() {
   return (
     <PageContainer page={pageTitle}>
       <div
-        className="relative flex h-[20rem] sm:h-[30rem] bg-white/5 backdrop-blur-sm justify-center space-x-10 overflow-y-auto rounded-md p-10 "
+        className="relative max-w-5xl mx-auto flex w-full h-[20rem] sm:h-[30rem] bg-white/5 backdrop-blur-sm justify-center space-x-10 overflow-y-auto rounded-md p-10 "
         ref={ref}
       >
         <div className="div relative flex items-start px-4">
-          <div className="max-w-2xl">
+          <div className="max-w-5xl">
             {content.map((item, index) => (
               <motion.div
                 key={item.title + index}

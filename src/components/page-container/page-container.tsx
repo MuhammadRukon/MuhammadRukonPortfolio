@@ -10,7 +10,7 @@ export default function PageContainer({ page, children }: PageContainerProps) {
       <div className="w-full h-full absolute top-0 left-0">
         <TextHoverEffect text={page} isHomePage={isHomePage} />
       </div>
-      <div className="z-10">{children ?? <Disappoint />}</div>
+      <div className="z-10 w-full">{children ?? <Disappoint />}</div>
     </div>
   );
 }

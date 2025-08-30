@@ -8,6 +8,8 @@ import { sendMail } from "@/app/config/email";
 
 export function Form() {
   const checkEmailRestriction = (email: string): boolean => {
+    if (typeof window === "undefined") return false;
+
     const lastSentTime = localStorage.getItem(email);
     if (!lastSentTime) return false;
 
@@ -38,7 +40,7 @@ export function Form() {
     const data = {
       name: formData.get("fullname"),
       email: email,
-      subject: formData.get("subject"),
+      title: formData.get("subject"),
       time: new Date().toLocaleString("en-US", {
         weekday: "long",
         year: "numeric",
@@ -57,7 +59,9 @@ export function Form() {
       (e.target as HTMLFormElement).reset();
 
       //save the timestamp on email id
-      localStorage.setItem(email, new Date().toISOString());
+      if (typeof window !== "undefined") {
+        localStorage.setItem(email, new Date().toISOString());
+      }
     } catch (err) {
       console.error(err);
       alert("❌ Failed to send message. Please try again later.");
@@ -132,19 +136,16 @@ export function Form() {
             </a>
             <BottomGradient />
           </button> */}
-          <button
-            className="group/btn shadow-input relative flex h-10 w-full items-center justify-center space-x-1 sm:space-x-2 rounded-md bg-[#0f745e] px-4 font-medium text-black dark:shadow-[0px_0px_1px_1px_#262626]"
-            type="submit"
-          >
+          <div className="group/btn shadow-input relative flex h-10 w-full items-center justify-center space-x-1 sm:space-x-2 rounded-md bg-[#0f745e] px-4 font-medium text-black dark:shadow-[0px_0px_1px_1px_#262626]">
             <IconBrandWhatsapp className="h-3 w-3 sm:h-4 sm:w-4 text-neutral-800 dark:text-neutral-300" />
             <a
-              href="https://wa.me/018158780053"
+              href="https://wa.me/+88018158780053"
               className="text-xs sm:text-sm text-neutral-700 dark:text-neutral-300"
             >
               Whatsapp
             </a>
             <BottomGradient />
-          </button>
+          </div>
         </div>
       </form>
     </div>
