@@ -59,8 +59,8 @@ export function Docker() {
 
   return (
     <FloatingDock
-      mobileClassName="right-5 z-99 fixed bottom-5"
-      desktopClassName="right-1/2 translate-x-1/2 z-99 fixed bottom-5"
+      mobileClassName="right-5 z-50 fixed bottom-5"
+      desktopClassName="right-1/2 translate-x-1/2 z-50 fixed bottom-5"
       items={items}
     />
   );

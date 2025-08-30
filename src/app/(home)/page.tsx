@@ -27,16 +27,7 @@ export default function Home() {
           </p>
 
           <div className="flex items-center space-x-2">
-            <button
-              className={cn(
-                buttonClassName,
-                "relative inline-flex overflow-hidden rounded-full"
-              )}
-            >
-              <span className="absolute " />
-
-              <HireMeModal />
-            </button>
+            <HireMeModal />
 
             <a
               href="/Software_Engineer_Muhammad_Sheikh_Rukon.pdf"

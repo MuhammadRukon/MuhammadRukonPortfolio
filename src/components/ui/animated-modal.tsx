@@ -21,9 +21,7 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
   const [open, setOpen] = useState(false);
 
   return (
-    <ModalContext.Provider value={{ open, setOpen }}>
-      {children}
-    </ModalContext.Provider>
+    <ModalContext.Provider value={{ open, setOpen }}>{children}</ModalContext.Provider>
   );
 };
 
@@ -35,7 +33,22 @@ export const useModal = () => {
   return context;
 };
 
-export function Modal({ children }: { children: ReactNode }) {
+export function Modal({
+  children,
+  isOpen,
+  onClose,
+}: {
+  children: ReactNode;
+  isOpen?: boolean;
+  onClose?: () => void;
+}) {
+  if (isOpen !== undefined && onClose !== undefined) {
+    return (
+      <ModalContext.Provider value={{ open: isOpen, setOpen: onClose }}>
+        {children}
+      </ModalContext.Provider>
+    );
+  }
   return <ModalProvider>{children}</ModalProvider>;
 }
 
@@ -50,7 +63,7 @@ export const ModalTrigger = ({
   return (
     <button
       className={cn(
-        "px-4 py-2 rounded-md text-black dark:text-white text-center relative overflow-hidden",
+        " rounded-md text-black dark:text-white text-center relative overflow-hidden",
         className
       )}
       onClick={() => setOpen(true)}
@@ -96,14 +109,14 @@ export const ModalBody = ({
             opacity: 0,
             backdropFilter: "blur(0px)",
           }}
-          className="fixed [perspective:800px] [transform-style:preserve-3d] inset-0 h-full w-full  flex items-center justify-center z-50"
+          className="fixed [perspective:800px] [transform-style:preserve-3d] inset-0 h-full w-full z-[999999] flex items-center justify-center"
         >
           <Overlay />
 
           <motion.div
             ref={modalRef}
             className={cn(
-              "min-h-[50%] max-h-[90%] md:max-w-[40%] bg-white dark:bg-neutral-950 border border-transparent dark:border-neutral-800 md:rounded-2xl relative z-50 flex flex-col flex-1 overflow-hidden",
+              "min-h-[50%] max-h-[90%] md:max-w-[40%] bg-white dark:bg-neutral-950 border border-transparent dark:border-neutral-800 md:rounded-2xl relative z-[999999] flex flex-col flex-1 overflow-hidden",
               className
             )}
             initial={{
@@ -146,9 +159,7 @@ export const ModalContent = ({
   className?: string;
 }) => {
   return (
-    <div className={cn("flex flex-col flex-1 p-8 md:p-10", className)}>
-      {children}
-    </div>
+    <div className={cn("flex flex-col flex-1 p-8 md:p-10", className)}>{children}</div>
   );
 };
 
@@ -161,10 +172,7 @@ export const ModalFooter = ({
 }) => {
   return (
     <div
-      className={cn(
-        "flex justify-end p-4 bg-gray-100 dark:bg-neutral-900",
-        className
-      )}
+      className={cn("flex justify-end p-4 bg-gray-100 dark:bg-neutral-900", className)}
     >
       {children}
     </div>
@@ -185,7 +193,7 @@ const Overlay = ({ className }: { className?: string }) => {
         opacity: 0,
         backdropFilter: "blur(0px)",
       }}
-      className={`fixed inset-0 h-full w-full bg-black bg-opacity-50 z-50 ${className}`}
+      className={`fixed inset-0 h-full w-full bg-black bg-opacity-50 z-[999998] ${className}`}
     ></motion.div>
   );
 };
@@ -193,10 +201,7 @@ const Overlay = ({ className }: { className?: string }) => {
 const CloseIcon = () => {
   const { setOpen } = useModal();
   return (
-    <button
-      onClick={() => setOpen(false)}
-      className="absolute top-4 right-4 group"
-    >
+    <button onClick={() => setOpen(false)} className="absolute top-4 right-4 group">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"

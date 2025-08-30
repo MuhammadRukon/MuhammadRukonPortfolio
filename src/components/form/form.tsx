@@ -1,43 +1,115 @@
 "use client";
-import React from "react";
+import React, { FormEvent } from "react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { cn } from "@/lib/utils";
-import { IconBrandInstagram, IconBrandWhatsapp } from "@tabler/icons-react";
+import { IconBrandWhatsapp } from "@tabler/icons-react";
+import { sendMail } from "@/app/config/email";
 
 export function Form() {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // TODO: Send email to me
+  const checkEmailRestriction = (email: string): boolean => {
+    const lastSentTime = localStorage.getItem(email);
+    if (!lastSentTime) return false;
+
+    const lastSent = new Date(lastSentTime);
+    const now = new Date();
+    const threeDaysInMs = 7 * 24 * 60 * 60 * 1000;
+
+    return now.getTime() - lastSent.getTime() < threeDaysInMs;
   };
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    const formData = new FormData(e.target as HTMLFormElement);
+    const email = formData.get("email") as string;
+
+    if (!formData.get("fullname") || !email || !formData.get("textArea")) {
+      alert("Please enter all fields");
+      return;
+    }
+
+    if (checkEmailRestriction(email)) {
+      alert(
+        "You already sent an email, I can't allow you to send multiple emails as I am using free tier, contact me via whatsapp"
+      );
+      return;
+    }
+
+    const data = {
+      name: formData.get("fullname"),
+      email: email,
+      subject: formData.get("subject"),
+      time: new Date().toLocaleString("en-US", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true,
+      }),
+      message: formData.get("textArea"),
+    };
+
+    try {
+      await sendMail(data);
+      alert("✅ Your message has been sent!");
+      (e.target as HTMLFormElement).reset();
+
+      //save the timestamp on email id
+      localStorage.setItem(email, new Date().toISOString());
+    } catch (err) {
+      console.error(err);
+      alert("❌ Failed to send message. Please try again later.");
+    }
+  };
+
   return (
     <div className="shadow-input text-left mx-auto w-full max-w-md rounded-none p-2 md:rounded-2xl md:p-4">
-      <h2 className="text-center text-xl font-bold text-neutral-800 dark:text-neutral-200">
+      <h2 className="text-center text-lg sm:text-xl font-bold text-neutral-800 dark:text-neutral-200">
         Contact Me
       </h2>
 
       <form className="my-4" onSubmit={handleSubmit}>
         <div className="mb-4 flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-2">
           <LabelInputContainer>
-            <Label htmlFor="firstname">First name</Label>
-            <Input id="firstname" placeholder="first name" type="text" />
-          </LabelInputContainer>
-          <LabelInputContainer>
-            <Label htmlFor="lastname">Last name</Label>
-            <Input id="lastname" placeholder="last name" type="text" />
+            <Label htmlFor="fullname">Full name</Label>
+            <Input
+              name="fullname"
+              id="fullname"
+              placeholder="full name"
+              type="text"
+              required
+            />
           </LabelInputContainer>
         </div>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="email">Email Address</Label>
-          <Input id="email" placeholder="someone@gmail.com" type="email" />
+          <Input
+            name="email"
+            id="email"
+            placeholder="someone@gmail.com"
+            type="email"
+            required
+          />
+        </LabelInputContainer>
+        <LabelInputContainer className="mb-4">
+          <Label htmlFor="textArea">Subject</Label>
+          <Input name="subject" id="subject" placeholder="Subject" type="text" required />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="textArea">Message</Label>
-          <Input id="textArea" placeholder="write mail" type="textarea" />
+          <Input
+            name="textArea"
+            id="textArea"
+            placeholder="write mail"
+            type="textarea"
+            required
+          />
         </LabelInputContainer>
 
         <button
-          className="group/btn relative block h-10 w-full rounded-md bg-gradient-to-br from-black to-neutral-600 font-medium text-white shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 dark:shadow-[0px_1px_0px_0px_#27272a_inset,0px_-1px_0px_0px_#27272a_inset]"
+          className="group/btn relative block text-xs sm:text-sm h-10 w-full rounded-md bg-gradient-to-br from-black to-neutral-600 font-medium text-white shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 dark:shadow-[0px_1px_0px_0px_#27272a_inset,0px_-1px_0px_0px_#27272a_inset]"
           type="submit"
         >
           Send Mail &rarr;
@@ -47,8 +119,8 @@ export function Form() {
         <div className="my-8 h-[1px] w-full bg-gradient-to-r from-transparent via-neutral-300 to-transparent dark:via-neutral-700" />
 
         <div className="flex flex-col space-y-4 ">
-          <button
-            className="group/btn shadow-input relative flex h-10 w-full items-center justify-center space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]"
+          {/* <button
+            className="group/btn shadow-input relative flex h-10 w-full items-center justify-center space-x-2 rounded-md bg-gradient-to-r from-[#ffcf23] to-[#f01c74] via-[#5c1fd6] px-4 font-medium text-black dark:shadow-[0px_0px_1px_1px_#262626]"
             type="submit"
           >
             <IconBrandInstagram className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
@@ -59,15 +131,15 @@ export function Form() {
               Instagram
             </a>
             <BottomGradient />
-          </button>
+          </button> */}
           <button
-            className="group/btn shadow-input relative flex h-10 w-full items-center justify-center space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]"
+            className="group/btn shadow-input relative flex h-10 w-full items-center justify-center space-x-1 sm:space-x-2 rounded-md bg-[#0f745e] px-4 font-medium text-black dark:shadow-[0px_0px_1px_1px_#262626]"
             type="submit"
           >
-            <IconBrandWhatsapp className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
+            <IconBrandWhatsapp className="h-3 w-3 sm:h-4 sm:w-4 text-neutral-800 dark:text-neutral-300" />
             <a
               href="https://wa.me/018158780053"
-              className="text-sm text-neutral-700 dark:text-neutral-300"
+              className="text-xs sm:text-sm text-neutral-700 dark:text-neutral-300"
             >
               Whatsapp
             </a>
