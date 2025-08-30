@@ -2,7 +2,6 @@ import { HireMeModal } from "@/components/modal/HireMeModal";
 import PageContainer from "@/components/page-container/page-container";
 import { FlipWords } from "@/components/ui/flip-words";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
-import { cn } from "@/lib/utils";
 
 export default function Home() {
   const words = [

@@ -3,6 +3,8 @@ import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "motion/react";
 import React, {
   ReactNode,
+  Ref,
+  RefObject,
   createContext,
   useContext,
   useEffect,
@@ -92,7 +94,8 @@ export const ModalBody = ({
 
   const modalRef = useRef(null);
   const { setOpen } = useModal();
-  useOutsideClick(modalRef, () => setOpen(false));
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  useOutsideClick(modalRef as RefObject<any>, () => setOpen(false));
 
   return (
     <AnimatePresence>
@@ -226,15 +229,16 @@ const CloseIcon = () => {
 // Add it in a separate file, I've added here for simplicity
 export const useOutsideClick = (
   ref: React.RefObject<HTMLDivElement>,
-  callback: Function
+  callback: () => void
 ) => {
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const listener = (event: any) => {
       // DO NOTHING if the element being clicked is the target element or their children
       if (!ref.current || ref.current.contains(event.target)) {
         return;
       }
-      callback(event);
+      callback();
     };
 
     document.addEventListener("mousedown", listener);
