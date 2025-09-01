@@ -2,8 +2,7 @@ import { TextHoverEffect } from "@/components/ui/text-hover-effect";
 import { PageContainerProps } from "./page-container.types";
 import Disappoint from "../disappoint/disappoint";
 
-export default function PageContainer({ page, children }: PageContainerProps) {
-  // TODO: FIX check
+export function PageContainer({ page, children }: PageContainerProps) {
   const isHomePage = page === "RUKON" || page === "Experience";
   return (
     <div className="min-h-[95vh] w-full flex items-center justify-center relative text-white p-3 sm:p-10">

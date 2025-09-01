@@ -1,5 +1,6 @@
 "use client";
-import PageContainer from "@/components/page-container/page-container";
+import { PageContainer } from "@/components/page-container/page-container";
+import { educationData } from "@/constant/static-data";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { motion, useMotionValueEvent, useScroll } from "motion/react";
 import { useRef, useState } from "react";
@@ -7,29 +8,6 @@ import { useRef, useState } from "react";
 export default function Achievements() {
   const pageTitle = usePageTitle();
 
-  const content = [
-    {
-      title: "BSc in Computer Science and Engineering",
-      subtitle: "National University",
-      description: (
-        <>
-          <li>CGPA: 3.18</li>
-          <li>Dhaka, Bangladesh</li>
-          <li>2020-2025</li>
-        </>
-      ),
-    },
-    {
-      title: "HSC - Science",
-      subtitle: "Bangladesh International School and College",
-      description: (
-        <>
-          <li>Riyadh, Saudi Arabia</li>
-          <li>2017-2019</li>
-        </>
-      ),
-    },
-  ];
   const [activeCard, setActiveCard] = useState(0);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const ref = useRef<any>(null);
@@ -37,10 +15,10 @@ export default function Achievements() {
     container: ref,
     offset: ["start start", "end start"],
   });
-  const cardLength = content.length;
+  const cardLength = educationData.length;
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    const cardsBreakpoints = content.map((_, index) => index / cardLength);
+    const cardsBreakpoints = educationData.map((_, index) => index / cardLength);
     const closestBreakpointIndex = cardsBreakpoints.reduce((acc, breakpoint, index) => {
       const distance = Math.abs(latest - breakpoint);
       if (distance < Math.abs(latest - cardsBreakpoints[acc])) {
@@ -58,49 +36,31 @@ export default function Achievements() {
       >
         <div className="div relative flex items-start px-4">
           <div className="max-w-5xl">
-            {content.map((item, index) => (
+            {educationData.map((item, index) => (
               <motion.div
                 key={item.title + index}
                 className="my-10 sm:my-20"
-                initial={{
-                  scale: 0,
-                }}
-                animate={{
-                  scale: activeCard === index ? 1.05 : 1,
-                }}
-                transition={{
-                  duration: 0.5,
-                }}
+                initial={{ scale: 0 }}
+                animate={{ scale: activeCard === index ? 1.05 : 1 }}
+                transition={{ duration: 0.5 }}
               >
                 <motion.h2
-                  initial={{
-                    opacity: 0,
-                  }}
-                  animate={{
-                    opacity: activeCard === index ? 1 : 0.3,
-                  }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: activeCard === index ? 1 : 0.3 }}
                   className="text-lg sm:text-2xl font-bold text-slate-100"
                 >
                   <p className=" flex items-center gap-2">{item.title}</p>
                 </motion.h2>
                 <motion.p
-                  initial={{
-                    opacity: 0,
-                  }}
-                  animate={{
-                    opacity: activeCard === index ? 1 : 0.3,
-                  }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: activeCard === index ? 1 : 0.3 }}
                   className="text-xs sm:text-sm mt-1 max-w-sm text-slate-300"
                 >
                   {item.subtitle}
                 </motion.p>
                 <motion.ol
-                  initial={{
-                    opacity: 0,
-                  }}
-                  animate={{
-                    opacity: activeCard === index ? 1 : 0.3,
-                  }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: activeCard === index ? 1 : 0.3 }}
                   className="text-xs sm:text-sm mt-4 max-w-sm text-slate-300 list-disc list-inside"
                 >
                   {item.description}

@@ -106,7 +106,7 @@ export const TextHoverEffect = ({
         y="50%"
         textAnchor="middle"
         dominantBaseline="middle"
-        strokeWidth={isMobile ? "0.5" : "0.2"}
+        strokeWidth={isMobile ? "0.4" : "0.2"}
         className={`fill-transparent stroke-neutral-900 ${isHomePage ?? "opacity-50"} font-[poppins] text-7xl font-bold dark:stroke-neutral-900`}
         initial={{ strokeDashoffset: 1000, strokeDasharray: 1000 }}
         animate={{
@@ -126,7 +126,7 @@ export const TextHoverEffect = ({
         textAnchor="middle"
         dominantBaseline="middle"
         stroke="url(#textGradient)"
-        strokeWidth={isMobile ? "0.5" : "0.2"}
+        strokeWidth={isMobile ? "0.4" : "0.2"}
         mask="url(#textMask)"
         className={`fill-transparent font-[poppins] text-7xl font-bold ${isHomePage ?? "opacity-50"}`}
       >

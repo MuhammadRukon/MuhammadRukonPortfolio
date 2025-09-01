@@ -1,5 +1,5 @@
 "use client";
-import PageContainer from "@/components/page-container/page-container";
+import { PageContainer } from "@/components/page-container/page-container";
 import { usePageTitle } from "@/hooks/usePageTitle";
 
 export default function Blogs() {
@@ -8,7 +8,7 @@ export default function Blogs() {
   return (
     <PageContainer page={pageTitle}>
       <p className="text-center">
-        This page will be available as soon as I get rich  and famous.
+        This page will be available as soon as I get rich and famous.
       </p>
     </PageContainer>
   );

@@ -2,7 +2,7 @@
 
 import { usePageTitle } from "@/hooks/usePageTitle";
 
-import PageContainer from "@/components/page-container/page-container";
+import { PageContainer } from "@/components/page-container/page-container";
 
 export default function About() {
   const pageTitle = usePageTitle();
