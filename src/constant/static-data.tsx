@@ -12,6 +12,7 @@ import {
   IconBrandNextjs,
   IconBrandNodejs,
   IconBrandPlanetscale,
+  IconBrandPrisma,
   IconBrandReact,
   IconBrandReactNative,
   IconBrandRedux,
@@ -21,6 +22,8 @@ import {
   IconBrandTypescript,
   IconBrandVercel,
   IconBrandVite,
+  IconForms,
+  IconSql,
 } from "@tabler/icons-react";
 
 export const designations = [
@@ -81,6 +84,11 @@ export const skills: ISkill[] = [
     icon: <IconBrandMongodb className={className} />,
   },
   {
+    name: "PostgreSQL",
+    type: SkillType.Backend,
+    icon: <IconSql className={className} />,
+  },
+  {
     name: "Git",
     type: SkillType.Others,
     icon: <IconBrandGit className={className} />,
@@ -136,6 +144,11 @@ export const skills: ISkill[] = [
     icon: <IconBrandMongodb className={className} />,
   },
   {
+    name: "Prisma",
+    type: SkillType.Backend,
+    icon: <IconBrandPrisma className={className} />,
+  },
+  {
     name: "GitHub",
     type: SkillType.Others,
     icon: <IconBrandGit className={className} />,
@@ -144,6 +157,11 @@ export const skills: ISkill[] = [
     name: "Vitest",
     type: SkillType.Others,
     icon: <IconBrandVite className={className} />,
+  },
+  {
+    name: "Zod",
+    type: SkillType.Others,
+    icon: <IconForms className={className} />,
   },
   {
     name: "Jest",
@@ -194,27 +212,29 @@ export const skills: ISkill[] = [
 
 export const projectData = [
   {
-    title: "Outlet Expense",
-    subtitle: "React.js, Tailwind, Redux, Recharts, JsPDF",
+    title: "Tecnologia (In Progress)",
+    subtitle:
+      "Next.js, Tailwind, Prisma, PostgreSQL, Zod, Zustand, Shadcn UI, Tanstack Query, Vitest",
     description: (
       <>
-        <li>
-          Delivered core POS features, ensuring responsiveness, including sales and
-          purchase billing, invoice and PDF generation.
-        </li>
-        <li>
-          Collaborated with UI/UX and backend teams, applying SDLC best practices,
-          improving team efficiency and product quality.
-        </li>
+        <li>An ecommerce platform for selling technology products.</li>
+        <li>User can login and add products to the cart and checkout.</li>
+        <li>Admin can login and add products, category, brand to the database.</li>
+        <li>Analytics for sales and products.</li>
       </>
     ),
-    link: "https://pos.outletexpense.com/login",
+    link: "https://tecnologia-tech.vercel.app/",
   },
   {
-    title: "HadithKhujo",
-    subtitle: "Vite-react, Tailwind, RTK, Express.js, Mongoose, Firebase",
+    title: "Iqra",
+    subtitle: "Next.js, Vite-react, Tailwind, RTK, Express.js, Mongoose, Firebase",
     description: (
       <>
+        <li>
+          Architected a Quran app with SSR and Next.js Api routes. Includes Zakat &
+          Inheritance Calculator.
+        </li>
+        <li>Implementated infinite scroll and pagination for the Quran.</li>
         <li>
           An Islamic (Hadith) web app featuring a responsive UI, multilingual support,
           night mode.
@@ -223,7 +243,7 @@ export const projectData = [
         <li>Authentication, bookmarks, categorized hadith.</li>
       </>
     ),
-    link: "https://hadithkhujo.netlify.app/",
+    link: "https://iqra-online.vercel.app/",
   },
   {
     title: "Frete",
@@ -240,6 +260,23 @@ export const projectData = [
       </>
     ),
     link: "https://frete-a8155.web.app/",
+  },
+  {
+    title: "Outlet Expense",
+    subtitle: "React.js, Tailwind, Redux, Recharts, JsPDF",
+    description: (
+      <>
+        <li>
+          Delivered core POS features, ensuring responsiveness, including sales and
+          purchase billing, invoice and PDF generation.
+        </li>
+        <li>
+          Collaborated with UI/UX and backend teams, applying SDLC best practices,
+          improving team efficiency and product quality.
+        </li>
+      </>
+    ),
+    link: "https://pos.outletexpense.com/login",
   },
 ];
 
