@@ -5,7 +5,7 @@ import { usePageTitle } from "@/hooks/usePageTitle";
 import { motion, useMotionValueEvent, useScroll } from "motion/react";
 import { useRef, useState } from "react";
 
-export default function Achievements() {
+export default function Education() {
   const pageTitle = usePageTitle();
 
   const [activeCard, setActiveCard] = useState(0);

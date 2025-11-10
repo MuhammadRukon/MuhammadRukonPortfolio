@@ -9,6 +9,7 @@ import {
   IconHome,
   IconSchool,
   IconStack2,
+  IconTrophy,
   IconUserCog,
 } from "@tabler/icons-react";
 
@@ -54,6 +55,11 @@ export function Docker() {
       title: "Blogs",
       href: "/blogs",
       icon: <IconArticle className={iconClassName} />,
+    },
+    {
+      title: "Achievements",
+      href: "/achievements",
+      icon: <IconTrophy className={iconClassName} />,
     },
   ];
 
