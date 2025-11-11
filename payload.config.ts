@@ -4,7 +4,8 @@ import { mongooseAdapter } from "@payloadcms/db-mongodb";
 import { buildConfig } from "payload";
 import { Users } from "./src/collections/Users";
 import { Skills } from "./src/collections/Skills";
-import { Education } from "@/collections/Education";
+import { Education } from "./src/collections/Education";
+import { Navigation } from "./src/globals/Navigation";
 
 export default buildConfig({
   // If you'd like to use Rich Text, pass your editor here
@@ -12,6 +13,9 @@ export default buildConfig({
 
   // Define and configure your collections in this array
   collections: [Users, Skills, Education],
+
+  //Define and configure globals (single documents)
+  globals: [Navigation],
 
   admin: {
     user: "users",

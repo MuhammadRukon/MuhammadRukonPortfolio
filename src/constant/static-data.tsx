@@ -280,30 +280,6 @@ export const projectData = [
   },
 ];
 
-export const educationData = [
-  {
-    title: "BSc in Computer Science and Engineering",
-    subtitle: "National University",
-    description: (
-      <>
-        <li>CGPA: 3.18</li>
-        <li>Dhaka, Bangladesh</li>
-        <li>2020-2025</li>
-      </>
-    ),
-  },
-  {
-    title: "HSC - Science",
-    subtitle: "Bangladesh International School and College",
-    description: (
-      <>
-        <li>Riyadh, Saudi Arabia</li>
-        <li>2017-2019</li>
-      </>
-    ),
-  },
-];
-
 export const experienceData = [
   {
     title: "Flarie",

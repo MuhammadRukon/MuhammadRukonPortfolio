@@ -10,6 +10,7 @@ import { ISkill } from "@/interfaces";
 
 export default async function Skills() {
   const data = await localApi("skills");
+  //ques: how to get ts inference here?
   const skills = data.docs as unknown as ISkill[];
   return (
     <>

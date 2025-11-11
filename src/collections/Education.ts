@@ -6,10 +6,7 @@ export const Education: CollectionConfig = {
     useAsTitle: "title",
   },
   fields: [
-    {
-      name: "title",
-      type: "text",
-      required: true,
+    {name: "title", type: "text",  required: true,
     },
     {
       name: "subtitle",
