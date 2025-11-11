@@ -7,9 +7,36 @@ import { PageContainer } from "@/components/page-container/page-container";
 import { ScrollDown } from "@/components/scroll-down/scroll-down";
 import { TracingBeam } from "@/components/ui/tracing-beam";
 import { TabContainer } from "@/components/tab-container/tab-container";
+import { useEffect, useState } from "react";
+import { ISkill } from "@/interfaces";
 
 export default function Skills() {
+  const [skills, setSkills] = useState<ISkill[]>([]);
   const pageTitle = usePageTitle();
+
+  useEffect(()=>{
+   async function fetchSkills(){
+    try{
+      const response = await fetch("/api/skills");
+      const data = await response.json();
+
+      if(!response.ok){
+        console.error("Failed to fetch skills");
+        return;
+      }
+
+      const skillsData : ISkill[] = data.docs;
+
+      setSkills(skillsData);
+
+    } catch(error){
+      console.error("Error fetching skills", error);
+    }
+   }
+
+    fetchSkills();
+  },[])
+
 
   return (
     <>
@@ -28,7 +55,7 @@ export default function Skills() {
             SkillType.Backend,
             SkillType.Others,
           ].map((type) => (
-            <TabContainer type={type} key={type} />
+            <TabContainer type={type} key={type} skills={skills.filter((skill) => skill.type === type)}/>
           ))}
         </div>
       </div>

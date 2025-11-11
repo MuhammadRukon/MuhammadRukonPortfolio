@@ -1,12 +1,19 @@
 "use client";
 import { PageContainer } from "@/components/page-container/page-container";
-import { educationData } from "@/constant/static-data";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { motion, useMotionValueEvent, useScroll } from "motion/react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function Education() {
   const pageTitle = usePageTitle();
+  const [educationData, setEducationData] = useState<
+    {
+      title: string;
+      subtitle: string;
+      description: any;
+    }[]
+  >([]);
+  const [cardLength, setCardLength] = useState<number>(0);
 
   const [activeCard, setActiveCard] = useState(0);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -15,7 +22,6 @@ export default function Education() {
     container: ref,
     offset: ["start start", "end start"],
   });
-  const cardLength = educationData.length;
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     const cardsBreakpoints = educationData.map((_, index) => index / cardLength);
@@ -28,6 +34,31 @@ export default function Education() {
     }, 0);
     setActiveCard(closestBreakpointIndex);
   });
+
+  useEffect(() => {
+    async function fetchEducation() {
+      try {
+        const response = await fetch("/api/education");
+        const data = await response.json();
+
+        if (!response.ok) {
+          console.error("Failed to fetch education");
+          return;
+        }
+
+        const d = data.docs;
+
+        setEducationData(d);
+        setCardLength(d.length);
+      } catch (error) {
+        console.error("Error fetching skills", error);
+      }
+    }
+
+    fetchEducation();
+  }, []);
+
+  console.log(educationData);
   return (
     <PageContainer page={pageTitle}>
       <div
@@ -38,7 +69,7 @@ export default function Education() {
           <div className="max-w-5xl">
             {educationData.map((item, index) => (
               <motion.div
-                key={item.title + index}
+                key={index}
                 className="my-10 sm:my-20"
                 initial={{ scale: 0 }}
                 animate={{ scale: activeCard === index ? 1.05 : 1 }}
@@ -58,13 +89,13 @@ export default function Education() {
                 >
                   {item.subtitle}
                 </motion.p>
-                <motion.ol
+                {/* <motion.ol
                   initial={{ opacity: 0 }}
                   animate={{ opacity: activeCard === index ? 1 : 0.3 }}
                   className="text-xs sm:text-sm mt-4 max-w-sm text-slate-300 list-disc list-inside"
                 >
                   {item.description}
-                </motion.ol>
+                </motion.ol> */}
               </motion.div>
             ))}
             <div className="h-20 sm:h-40" />

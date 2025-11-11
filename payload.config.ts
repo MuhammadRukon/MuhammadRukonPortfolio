@@ -3,13 +3,15 @@ import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { mongooseAdapter } from "@payloadcms/db-mongodb";
 import { buildConfig } from "payload";
 import { Users } from "./src/collections/Users";
+import { Skills } from "./src/collections/Skills";
+import { Education } from "@/collections/Education";
 
 export default buildConfig({
   // If you'd like to use Rich Text, pass your editor here
   editor: lexicalEditor(),
 
   // Define and configure your collections in this array
-  collections: [Users],
+  collections: [Users, Skills, Education],
 
   admin: {
     user: "users",
