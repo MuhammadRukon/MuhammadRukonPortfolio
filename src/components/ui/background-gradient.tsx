@@ -1,3 +1,5 @@
+'use client'
+
 import { cn } from "@/lib/utils";
 import React from "react";
 import { motion, useScroll, useTransform } from "motion/react";

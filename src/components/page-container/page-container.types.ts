@@ -1,4 +1,4 @@
 export type PageContainerProps = {
-  page: string;
+  page?: string;
   children?: React.ReactNode;
 };

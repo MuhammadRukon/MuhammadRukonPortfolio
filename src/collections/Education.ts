@@ -18,13 +18,9 @@ export const Education: CollectionConfig = {
     },
     {
       name: "description",
-      type: "richText",
+      type: "array",
       required: true,
+      fields: [{ name: "point", type: "text" }],
     },
   ],
-  hooks: {
-    afterChange: [
-      async ({ req: { payload } }) => await payload.find({ collection: "education" }),
-    ],
-  },
 };

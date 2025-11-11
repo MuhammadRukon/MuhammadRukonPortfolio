@@ -1,8 +1,12 @@
+"use client";
+
 import { TextHoverEffect } from "@/components/ui/text-hover-effect";
 import { PageContainerProps } from "./page-container.types";
 import Disappoint from "../disappoint/disappoint";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
-export function PageContainer({ page, children }: PageContainerProps) {
+export function PageContainer({ children }: PageContainerProps) {
+  const page = usePageTitle();
   const isHomePage = page === "RUKON" || page === "Experience";
   return (
     <div className="min-h-[95vh] w-full flex items-center justify-center relative text-white p-3 sm:p-10">
