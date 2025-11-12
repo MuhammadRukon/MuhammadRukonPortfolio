@@ -1,20 +1,16 @@
 "use client";
 
+import { Education } from "@payload-types";
 import { motion, useMotionValueEvent, useScroll } from "motion/react";
 import { useRef, useState } from "react";
 
 interface ContainerProps {
   cardLength: number;
-  educationData: {
-    title: string;
-    subtitle: string;
-    description: Array<{ point: string; id: string }>;
-  }[];
+  educationData: Education[];
 }
 export function Container({ educationData, cardLength }: ContainerProps) {
   const [activeCard, setActiveCard] = useState(0);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const ref = useRef<any>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     container: ref,
     offset: ["start start", "end start"],

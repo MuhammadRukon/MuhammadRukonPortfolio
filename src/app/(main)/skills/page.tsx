@@ -1,20 +1,22 @@
 import { SkillType } from "@/enums";
-import { localApi } from "@/lib/payload";
-import { ISkill } from "@/interfaces";
-
 import { PageContainer } from "@/components/page-container/page-container";
 import { ScrollDown } from "@/components/scroll-down/scroll-down";
 import { TracingBeam } from "@/components/ui/tracing-beam";
 import { TabContainer } from "@/components/tab-container/tab-container";
 import { Duration } from "@/constant/static-data";
+import { payload } from "@/lib/payload";
 
 export const revalidate = Duration.Week;
 
 export default async function Skills() {
-  const data = await localApi("skills");
+  const data = await payload.find({
+    collection: "skills",
+    pagination: false,
+    sort: "name",
+  });
 
-  //ques: how to get ts inference here?
-  const skills = data.docs as unknown as ISkill[];
+  const skills = data.docs;
+
   return (
     <>
       <PageContainer>

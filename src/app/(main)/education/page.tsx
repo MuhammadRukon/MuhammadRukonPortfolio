@@ -1,18 +1,15 @@
 import { PageContainer } from "@/components/page-container/page-container";
 import { Container } from "./container";
-import { localApi } from "@/lib/payload";
+
 import { Duration } from "@/constant/static-data";
+import { payload } from "@/lib/payload";
 
 export const revalidate = Duration.Year;
 
 export default async function Education() {
-  const data = await localApi("education");
+  const data = await payload.find({ collection: "education" });
 
-  const eduData = data.docs as unknown as {
-    title: string;
-    subtitle: string;
-    description: any;
-  }[];
+  const eduData = data.docs;
 
   return (
     <PageContainer>
