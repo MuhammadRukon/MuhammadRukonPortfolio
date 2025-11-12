@@ -33,6 +33,15 @@ export const designations = [
   "Full Stack Developer",
 ];
 
+const day = 60 * 60 * 24;
+
+export enum Duration {
+  Week = day * 7,
+  Day = day,
+  Month = day * 30,
+  Year = day * 365,
+}
+
 export const CAREER_START_DATE = new Date("Apr 2024");
 
 const className = "w-4 sm:w-5 h-4 sm:h-5";

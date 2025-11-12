@@ -1,15 +1,18 @@
 import { SkillType } from "@/enums";
+import { localApi } from "@/lib/payload";
+import { ISkill } from "@/interfaces";
 
 import { PageContainer } from "@/components/page-container/page-container";
 import { ScrollDown } from "@/components/scroll-down/scroll-down";
 import { TracingBeam } from "@/components/ui/tracing-beam";
 import { TabContainer } from "@/components/tab-container/tab-container";
+import { Duration } from "@/constant/static-data";
 
-import { localApi } from "@/lib/payload";
-import { ISkill } from "@/interfaces";
+export const revalidate = Duration.Week;
 
 export default async function Skills() {
   const data = await localApi("skills");
+
   //ques: how to get ts inference here?
   const skills = data.docs as unknown as ISkill[];
   return (

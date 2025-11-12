@@ -1,15 +1,15 @@
-import { localApi } from "@/lib/payload";
+import { payload } from "@/lib/payload";
 import { FloatingDock } from "../ui/floating-dock";
+import { Duration } from "@/constant/static-data";
+
+export const revalidate = Duration.Week;
 
 export async function Docker() {
-  const iconClassName = "w-full h-full";
+  // const iconClassName = "w-full h-full";
+  const data = await payload.findGlobal({ slug: "nav" });
 
-  const data = (await localApi("nav", false)) as {
-    items: { title: string; icon: React.ReactNode; href: string }[];
-  };
   //ques: how to get ts inference here?
-  console.log(data);
-  const items = data.items;
+  const items = data.items as { title: string; icon: React.ReactNode; href: string }[];
 
   return (
     <FloatingDock
