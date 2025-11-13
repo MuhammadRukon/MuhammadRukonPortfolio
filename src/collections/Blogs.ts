@@ -9,5 +9,4 @@ export const Blogs: CollectionConfig = {
     { name: "content", type: "richText", required: true },
     slugField({ fieldToUse: "title" }),
   ],
-
 };
