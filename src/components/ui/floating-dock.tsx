@@ -14,6 +14,7 @@ import * as TablerIcons from "@tabler/icons-react";
 
 import { useRef, useState } from "react";
 import { GlowingEffect } from "./glowing-effect";
+import Link from "next/link";
 
 export const FloatingDock = ({
   items,
@@ -202,7 +203,7 @@ function IconContainer({
       className: string;
     }>);
   return (
-    <a href={href} className="relative">
+    <Link href={href} className="relative">
       <motion.div
         ref={ref}
         initial={{
@@ -246,6 +247,6 @@ function IconContainer({
           {TablerIcon && <TablerIcon className=" w-10 h-10 " />}
         </motion.div>
       </motion.div>
-    </a>
+    </Link>
   );
 }

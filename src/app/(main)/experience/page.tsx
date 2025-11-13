@@ -1,6 +1,5 @@
 "use client";
 
-import { usePageTitle } from "@/hooks/usePageTitle";
 import { CAREER_START_DATE, experienceData } from "@/constant/static-data";
 
 import { PageContainer } from "@/components/page-container/page-container";
@@ -8,8 +7,6 @@ import { ScrollDown } from "@/components/scroll-down/scroll-down";
 import { Timeline } from "@/components/ui/timeline";
 
 export default function Experience() {
-  const pageTitle = usePageTitle();
-
   const yearsOfExperience = (
     (new Date().getTime() - new Date(CAREER_START_DATE).getTime()) /
     1000 /
@@ -21,7 +18,7 @@ export default function Experience() {
 
   return (
     <>
-      <PageContainer page={pageTitle}>
+      <PageContainer>
         <div className="px-4 md:px-8 lg:px-10 text-center">
           <h2 className="text-lg md:text-4xl mb-4 text-black dark:text-white">
             Career as a Software Engineer

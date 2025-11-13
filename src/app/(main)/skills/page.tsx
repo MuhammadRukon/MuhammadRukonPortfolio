@@ -9,13 +9,11 @@ import { payload } from "@/lib/payload";
 export const revalidate = Duration.Week;
 
 export default async function Skills() {
-  const data = await payload.find({
+  const { docs: skills } = await payload.find({
     collection: "skills",
     pagination: false,
     sort: "name",
   });
-
-  const skills = data.docs;
 
   return (
     <>

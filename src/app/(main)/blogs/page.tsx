@@ -3,12 +3,11 @@ import { payload } from "@/lib/payload";
 import Link from "next/link";
 
 export default async function Blogs() {
-  const data = await payload.find({
+  const { docs: blogs } = await payload.find({
     collection: "blogs",
-    select: { title: true, description: true },
+    select: { title: true, description: true, slug: true },
   });
 
-  const blogs = data.docs;
   return (
     <PageContainer>
       {/* <p className="text-center">
@@ -18,8 +17,8 @@ export default async function Blogs() {
         {blogs.map((blog) => (
           <Link
             className="block text-left group bg-white/5 p-4 backdrop-blur-sm "
-            href={`/blogs/${blog.id}`}
-            key={blog.id}
+            href={`/blogs/${blog.slug}`}
+            key={blog.slug}
           >
             <h2 className="group-hover:underline">{blog.title}</h2>
             <p>{blog.description}</p>

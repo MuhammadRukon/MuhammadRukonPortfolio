@@ -1,6 +1,6 @@
 "use client";
 
-import { usePageTitle } from "@/hooks/usePageTitle";
+import { usePageTitle } from "@/hooks/usePageName";
 
 import { PageContainer } from "@/components/page-container/page-container";
 

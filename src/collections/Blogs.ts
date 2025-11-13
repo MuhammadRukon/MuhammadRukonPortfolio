@@ -1,4 +1,4 @@
-import { CollectionConfig } from "payload";
+import { CollectionConfig, slugField } from "payload";
 
 export const Blogs: CollectionConfig = {
   slug: "blogs",
@@ -7,5 +7,7 @@ export const Blogs: CollectionConfig = {
     { name: "title", type: "text", required: true },
     { name: "description", type: "text" },
     { name: "content", type: "richText", required: true },
+    slugField({ fieldToUse: "title" }),
   ],
+
 };

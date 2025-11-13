@@ -1,31 +1,3 @@
-import { SkillType } from "@/enums";
-import { ISkill } from "@/interfaces";
-import {
-  IconBrandCpp,
-  IconBrandCss3,
-  IconBrandFramerMotion,
-  IconBrandGit,
-  IconBrandHtml5,
-  IconBrandJavascript,
-  IconBrandLine,
-  IconBrandMongodb,
-  IconBrandNextjs,
-  IconBrandNodejs,
-  IconBrandPlanetscale,
-  IconBrandPrisma,
-  IconBrandReact,
-  IconBrandReactNative,
-  IconBrandRedux,
-  IconBrandStorybook,
-  IconBrandTailwind,
-  IconBrandThreejs,
-  IconBrandTypescript,
-  IconBrandVercel,
-  IconBrandVite,
-  IconForms,
-  IconSql,
-} from "@tabler/icons-react";
-
 export const designations = [
   "Software Engineer",
   "Frontend Engineer",

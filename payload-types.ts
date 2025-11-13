@@ -96,7 +96,7 @@ export interface Config {
   globalsSelect: {
     nav: NavSelect<false> | NavSelect<true>;
   };
-  locale: null;
+  locale: 'en' | 'bn-BD';
   user: User & {
     collection: 'users';
   };
@@ -200,6 +200,11 @@ export interface Blog {
     };
     [k: string]: unknown;
   };
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -342,6 +347,8 @@ export interface BlogsSelect<T extends boolean = true> {
   title?: T;
   description?: T;
   content?: T;
+  generateSlug?: T;
+  slug?: T;
   updatedAt?: T;
   createdAt?: T;
 }
