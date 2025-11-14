@@ -19,8 +19,8 @@ export default async function Page({ params }: Params) {
 
   return (
     <div className="max-w-5xl px-6 mx-auto bg-stone-950 pt-10 pb-10 md:pb-26 h-screen overflow-y-auto">
-      <p> {blog[0]?.title}</p>
-      <p>{blog[0]?.description}</p>
+      <p className="text-2xl font-bold"> {blog[0]?.title}</p>
+      <p className="font-extralight text-muted-foreground">{blog[0]?.description}</p>
       <RichText data={blog[0]?.content} />
     </div>
   );

@@ -8,7 +8,10 @@ export const FlipWords = ({
   duration = 3000,
   className,
 }: {
-  words: string[];
+  words: {
+    designation: string;
+    id?: string | null;
+  }[];
   duration?: number;
   className?: string;
 }) => {
@@ -61,10 +64,10 @@ export const FlipWords = ({
           "z-10 inline-block relative text-left text-neutral-900 dark:text-neutral-100 px-2",
           className
         )}
-        key={currentWord}
+        key={currentWord.id}
       >
         {/* edit suggested by Sajal: https://x.com/DewanganSajal */}
-        {currentWord.split(" ").map((word, wordIndex) => (
+        {currentWord.designation.split(" ").map((word, wordIndex) => (
           <motion.span
             key={word + wordIndex}
             initial={{ opacity: 0, y: 10, filter: "blur(8px)" }}

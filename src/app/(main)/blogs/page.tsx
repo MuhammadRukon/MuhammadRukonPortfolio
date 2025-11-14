@@ -1,18 +1,20 @@
-import { PageContainer } from "@/components/page-container/page-container";
-import { payload } from "@/lib/payload";
 import Link from "next/link";
+import { payload } from "@/lib/payload";
+
+import { PageContainer } from "@/components/page-container/page-container";
 
 export default async function Blogs() {
   const { docs: blogs } = await payload.find({
     collection: "blogs",
-    select: { title: true, description: true, slug: true },
+    select: {
+      title: true,
+      description: true,
+      slug: true,
+      author: true,
+    },
   });
-
   return (
     <PageContainer>
-      {/* <p className="text-center">
-        This page will be available as soon as I get rich and famous.
-      </p> */}
       <div className="mx-auto w-fit space-y-5">
         {blogs.map((blog) => (
           <Link
@@ -22,6 +24,7 @@ export default async function Blogs() {
           >
             <h2 className="group-hover:underline">{blog.title}</h2>
             <p>{blog.description}</p>
+            {typeof blog.author === "object" ? <p>{blog.author.email}</p> : null}
           </Link>
         ))}
       </div>

@@ -11,6 +11,9 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { bnBd } from "@payloadcms/translations/languages/bnBd";
 import { en } from "@payloadcms/translations/languages/en";
+import { Home } from "@/globals/Home";
+
+import { Media } from "@/collections/Media";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -24,10 +27,10 @@ export default buildConfig({
   }),
 
   // Define and configure your collections in this array
-  collections: [Users, Skills, Education, Blogs],
+  collections: [Users, Skills, Education, Blogs, Media],
 
   //Define and configure globals (single documents)
-  globals: [Navigation],
+  globals: [Navigation, Home],
 
   admin: {
     user: "users",

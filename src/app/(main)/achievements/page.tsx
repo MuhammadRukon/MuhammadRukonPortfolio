@@ -11,15 +11,39 @@ interface LeetCodeStats {
   totalHard: number;
 }
 export default function Achievements() {
+  const dummyData: LeetCodeStats = {
+    easySolved: 0,
+    hardSolved: 0,
+    mediumSolved: 0,
+    totalEasy: 0,
+    totalHard: 0,
+    totalMedium: 0,
+  };
   const [data, setData] = useState<LeetCodeStats | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(
-        "https://leetcode-stats-api.herokuapp.com/MuhammadRukon"
-      );
-      const data: LeetCodeStats = await response.json();
-      setData(data);
+      try {
+        const response = await fetch(
+          "https://leetcode-stats-api.herokuapp.com/MuhammadRukon"
+        );
+
+        if (!response.ok) {
+          throw new Error("failed to fetch");
+        }
+
+        const data: LeetCodeStats = await response.json();
+
+        setData(data);
+        setIsLoading(false);
+      } catch (err) {
+        console.error(err);
+        setIsLoading(false);
+        setData(dummyData);
+      }
     };
+
     fetchData();
   }, []);
 
@@ -32,20 +56,26 @@ export default function Achievements() {
             <div className="py-6 flex flex-col lg:flex-row items-center justify-center w-full gap-4 mx-auto px-8">
               <div className="flex flex-col items-center bg-black/5 dark:bg-white/10 rounded-md py-3 px-4">
                 <div className="text-xs text-green-500 font-medium">Easy</div>
-                <div className="text-sm font-semibold">
-                  {data?.easySolved}/{data?.totalEasy}
+                <div className="text-sm font-semibold flex items-center gap-0.5">
+                  {isLoading ? <Skeleton /> : data?.easySolved}
+                  <span>/</span>
+                  {isLoading ? <Skeleton /> : data?.totalEasy}
                 </div>
               </div>
               <div className="flex flex-col items-center bg-black/5 dark:bg-white/10 rounded-md py-3 px-4">
                 <div className="text-xs text-yellow-500 font-medium">Medium</div>
-                <div className="text-sm font-semibold">
-                  {data?.mediumSolved}/{data?.totalMedium}
+                <div className="text-sm font-semibold flex items-center gap-0.5">
+                  {isLoading ? <Skeleton /> : data?.mediumSolved}
+                  <span>/</span>
+                  {isLoading ? <Skeleton /> : data?.totalMedium}
                 </div>
               </div>
               <div className="flex flex-col items-center bg-black/5 dark:bg-white/10 rounded-md py-3 px-4">
                 <div className="text-xs text-red-500 font-medium">Hard</div>
-                <div className="text-sm font-semibold">
-                  {data?.hardSolved}/{data?.totalHard}
+                <div className="text-sm font-semibold flex items-center gap-0.5">
+                  {isLoading ? <Skeleton /> : data?.hardSolved}
+                  <span>/</span>
+                  {isLoading ? <Skeleton /> : data?.totalHard}
                 </div>
               </div>
             </div>
@@ -60,4 +90,8 @@ export default function Achievements() {
       </div>
     </PageContainer>
   );
+}
+
+function Skeleton() {
+  return <p className="w-3 h-4 bg-slate-600 animate-pulse inline-block rounded-xs"></p>;
 }
