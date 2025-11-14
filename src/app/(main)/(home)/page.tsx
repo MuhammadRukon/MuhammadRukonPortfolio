@@ -6,15 +6,16 @@ import { payload } from "@/lib/payload";
 import { IconBrandGithub, IconBrandLinkedin } from "@tabler/icons-react";
 
 export default async function Home() {
-  const { title, summary, designations, resumeLink } = await payload.findGlobal({
+  const { title, summary, designations, resume, socials } = await payload.findGlobal({
     slug: "home",
   });
+
   const buttonClassName =
     "dark:bg-black bg-white text-black dark:text-white flex items-center space-x-2 text-xs sm:text-sm";
 
   const path =
-    typeof resumeLink === "object"
-      ? resumeLink.filename
+    typeof resume === "object"
+      ? resume?.filename
       : "Software_Engineer_Muhammad_Sheikh_Rukon.pdf";
   return (
     <div className="h-screen flex items-center justify-center">
@@ -50,17 +51,17 @@ export default async function Home() {
               target="_blank"
               rel="noopener noreferrer"
               href="https://www.linkedin.com/in/muhammadrukon/"
-              className="cursor-pointer border-2 border-white p-2 rounded-sm"
+              className="cursor-pointer border-2 border-stone-600 p-2 rounded-sm"
             >
-              <IconBrandLinkedin className="w-6 h-6 text-white" />
+              <IconBrandLinkedin className="w-6 h-6 text-stone-300" />
             </a>
             <a
               href="https://github.com/MuhammadRukon"
-              className="cursor-pointer border-2 border-white p-2 rounded-sm"
+              className="cursor-pointer border-2 border-stone-600 p-2 rounded-sm"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <IconBrandGithub className="w-6 h-6 text-white" />
+              <IconBrandGithub className="w-6 h-6 text-stone-300" />
             </a>
           </div>
         </div>

@@ -27,11 +27,9 @@ export const Home: GlobalConfig = {
       fields: [{ name: "link", type: "text", required: true }],
     },
     {
-      name: "resumeLink",
-      type: "upload",
+      name: "resume",
+      type: "relationship",
       relationTo: "media",
-      label: "Resume PDF",
-      required: true,
     },
   ],
 };

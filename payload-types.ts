@@ -520,7 +520,7 @@ export interface Home {
         id?: string | null;
       }[]
     | null;
-  resumeLink: string | Media;
+  resume?: (string | null) | Media;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -560,7 +560,7 @@ export interface HomeSelect<T extends boolean = true> {
         link?: T;
         id?: T;
       };
-  resumeLink?: T;
+  resume?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
