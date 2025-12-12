@@ -17,7 +17,7 @@ export default async function Home() {
     typeof resume === "object"
       ? resume?.filename
       : "Software_Engineer_Muhammad_Sheikh_Rukon.pdf";
-      
+
   return (
     <div className="h-screen flex items-center justify-center">
       <PageContainer>

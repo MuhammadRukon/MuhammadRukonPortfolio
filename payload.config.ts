@@ -67,6 +67,8 @@ export default buildConfig({
   // white listed urls
   cors: ["http://localhost:3000", "https://muhammadrukonsportfolio.netlify.app"],
 
+  csrf: ["http://localhost:3000", "https://muhammadrukonsportfolio.netlify.app"],
+
   // Your Payload secret - should be a complex and secure string, unguessable
   secret: process.env.PAYLOAD_SECRET || "",
   // Whichever Database Adapter you're using should go here
@@ -79,4 +81,11 @@ export default buildConfig({
   // This is optional - if you don't need to do these things,
   // you don't need it!
   sharp,
+
+  // Enable file uploads
+  upload: {
+    limits: {
+      fileSize: 5000000, // 5MB
+    },
+  },
 });
