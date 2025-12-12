@@ -10,9 +10,11 @@ import {
   useTransform,
 } from "motion/react";
 import { usePathname } from "next/navigation";
+import * as TablerIcons from "@tabler/icons-react";
 
 import { useRef, useState } from "react";
 import { GlowingEffect } from "./glowing-effect";
+import Link from "next/link";
 
 export const FloatingDock = ({
   items,
@@ -40,6 +42,7 @@ const FloatingDockMobile = ({
 }) => {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+
   return (
     <div className={cn("relative block md:hidden", className)}>
       <AnimatePresence>
@@ -50,6 +53,14 @@ const FloatingDockMobile = ({
           >
             {items.map((item, idx) => {
               const isActive = pathname === item.href;
+
+              const TablerIcon =
+                item.icon &&
+                (TablerIcons[
+                  item.icon as keyof typeof TablerIcons
+                ] as React.ComponentType<{
+                  className: string;
+                }>);
               return (
                 <motion.div
                   key={item.title}
@@ -77,13 +88,8 @@ const FloatingDockMobile = ({
                         : ""
                     )}
                   >
-                    <div
-                      className={cn(
-                        "h-4 w-4",
-                        isActive ? "text-white" : "text-neutral-400"
-                      )}
-                    >
-                      {item.icon}
+                    <div className={cn(isActive ? "text-white" : "text-neutral-400")}>
+                      {TablerIcon && <TablerIcon className="h-4 w-4" />}
                     </div>
                   </a>
                 </motion.div>
@@ -191,9 +197,13 @@ function IconContainer({
   });
 
   const [hovered, setHovered] = useState(false);
-
+  const TablerIcon =
+    icon &&
+    (TablerIcons[icon as keyof typeof TablerIcons] as React.ComponentType<{
+      className: string;
+    }>);
   return (
-    <a href={href} className="relative">
+    <Link href={href} className="relative">
       <motion.div
         ref={ref}
         initial={{
@@ -231,12 +241,12 @@ function IconContainer({
           {isActive && (
             <motion.div
               style={{ width: width, height: height }}
-              className="inset-[-1000%] absolute top-[-1px] scale-105 z-[-1] left-[-1px] w-10 h-10 rounded-full animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#8b5cf6cc_0%,#ef4444cc_25%,#3b82f6cc_50%,#06b6d4cc_75%,#8b5cf6cc_100%)]"
+              className="inset-[-1000%] absolute -top-px scale-105 z-[-1] -left-px rounded-full animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#8b5cf6cc_0%,#ef4444cc_25%,#3b82f6cc_50%,#06b6d4cc_75%,#8b5cf6cc_100%)]"
             ></motion.div>
           )}
-          {icon}
+          {TablerIcon && <TablerIcon className=" w-10 h-10 " />}
         </motion.div>
       </motion.div>
-    </a>
+    </Link>
   );
 }

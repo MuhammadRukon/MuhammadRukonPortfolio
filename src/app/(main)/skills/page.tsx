@@ -1,19 +1,22 @@
-"use client";
-
 import { SkillType } from "@/enums";
-import { usePageTitle } from "@/hooks/usePageTitle";
-
 import { PageContainer } from "@/components/page-container/page-container";
 import { ScrollDown } from "@/components/scroll-down/scroll-down";
 import { TracingBeam } from "@/components/ui/tracing-beam";
 import { TabContainer } from "@/components/tab-container/tab-container";
+import { payload } from "@/lib/payload";
 
-export default function Skills() {
-  const pageTitle = usePageTitle();
+export const revalidate = 604800; // 1 week in seconds
+
+export default async function Skills() {
+  const { docs: skills } = await payload.find({
+    collection: "skills",
+    pagination: false,
+    sort: "name",
+  });
 
   return (
     <>
-      <PageContainer page={pageTitle}>
+      <PageContainer>
         <ScrollDown />
       </PageContainer>
 
@@ -28,7 +31,11 @@ export default function Skills() {
             SkillType.Backend,
             SkillType.Others,
           ].map((type) => (
-            <TabContainer type={type} key={type} />
+            <TabContainer
+              type={type}
+              key={type}
+              skills={skills.filter((skill) => skill.type === type)}
+            />
           ))}
         </div>
       </div>

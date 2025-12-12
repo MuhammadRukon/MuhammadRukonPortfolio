@@ -1,19 +1,71 @@
 import sharp from "sharp";
-import { lexicalEditor } from "@payloadcms/richtext-lexical";
+import { FixedToolbarFeature, lexicalEditor } from "@payloadcms/richtext-lexical";
 import { mongooseAdapter } from "@payloadcms/db-mongodb";
 import { buildConfig } from "payload";
 import { Users } from "./src/collections/Users";
+import { Skills } from "./src/collections/Skills";
+import { Education } from "./src/collections/Education";
+import { Navigation } from "./src/globals/Navigation";
+import { Blogs } from "@/collections/Blogs";
+import path from "path";
+import { fileURLToPath } from "url";
+import { bnBd } from "@payloadcms/translations/languages/bnBd";
+import { en } from "@payloadcms/translations/languages/en";
+import { Home } from "@/globals/Home";
+
+import { Media } from "@/collections/Media";
+
+const filename = fileURLToPath(import.meta.url);
+const dirname = path.dirname(filename);
 
 export default buildConfig({
   // If you'd like to use Rich Text, pass your editor here
-  editor: lexicalEditor(),
+  editor: lexicalEditor({
+    features({ defaultFeatures }) {
+      return [...defaultFeatures, FixedToolbarFeature()];
+    },
+  }),
 
   // Define and configure your collections in this array
-  collections: [Users],
+  collections: [Users, Skills, Education, Blogs, Media],
+
+  //Define and configure globals (single documents)
+  globals: [Navigation, Home],
 
   admin: {
     user: "users",
+    components: {
+      graphics: { Logo: { path: "./src/components/logo/logo#Logo" } },
+    },
   },
+  // Multi language for admin UI
+  i18n: {
+    fallbackLanguage: "en",
+    supportedLanguages: { en, "bn-BD": bnBd },
+  },
+
+  // Multi language for content
+  localization: {
+    locales: [
+      {
+        label: "English",
+        code: "en",
+      },
+      {
+        label: "Bangla",
+        code: "bn-BD",
+      },
+    ],
+    defaultLocale: "en",
+    fallback: true,
+  },
+
+  typescript: {
+    outputFile: path.resolve(dirname, "payload-types.ts"),
+  },
+
+  // white listed urls
+  cors: ["http://localhost:3000", "https://muhammadrukonsportfolio.netlify.app"],
 
   // Your Payload secret - should be a complex and secure string, unguessable
   secret: process.env.PAYLOAD_SECRET || "",
