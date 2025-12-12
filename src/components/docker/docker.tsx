@@ -1,67 +1,15 @@
-"use client";
-
+import { payload } from "@/lib/payload";
 import { FloatingDock } from "../ui/floating-dock";
-import {
-  IconArticle,
-  IconBrandGithub,
-  IconBrandLinkedin,
-  IconBriefcase,
-  IconHome,
-  IconSchool,
-  IconStack2,
-  IconTrophy,
-  IconUserCog,
-} from "@tabler/icons-react";
+import { Duration } from "@/constant/static-data";
 
-export function Docker() {
-  const iconClassName = "w-full h-full";
-  const items: { title: string; icon: React.ReactNode; href: string }[] = [
-    {
-      title: "Home",
-      icon: <IconHome className={iconClassName} />,
-      href: "/",
-    },
-    {
-      title: "Experience",
-      href: "/experience",
-      icon: <IconBriefcase className={iconClassName} />,
-    },
-    {
-      title: "Skills",
-      href: "/skills",
-      icon: <IconUserCog className={iconClassName} />,
-    },
-    {
-      title: "GitHub",
-      icon: <IconBrandGithub className={iconClassName} />,
-      href: "https://github.com/MuhammadRukon",
-    },
-    {
-      title: "LinkedIn",
-      icon: <IconBrandLinkedin className={iconClassName} />,
-      href: "https://www.linkedin.com/in/muhammadrukon/",
-    },
-    {
-      title: "Projects",
-      href: "/projects",
-      icon: <IconStack2 className={iconClassName} />,
-    },
-    {
-      title: "Education",
-      icon: <IconSchool className={iconClassName} />,
-      href: "/education",
-    },
-    {
-      title: "Blogs",
-      href: "/blogs",
-      icon: <IconArticle className={iconClassName} />,
-    },
-    {
-      title: "Achievements",
-      href: "/achievements",
-      icon: <IconTrophy className={iconClassName} />,
-    },
-  ];
+export const revalidate = Duration.Week;
+
+export async function Docker() {
+  // const iconClassName = "w-full h-full";
+  const data = await payload.findGlobal({ slug: "nav" });
+
+  //ques: how to get ts inference here?
+  const items = data.items as { title: string; icon: React.ReactNode; href: string }[];
 
   return (
     <FloatingDock

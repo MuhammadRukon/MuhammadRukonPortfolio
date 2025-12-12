@@ -1,7 +1,6 @@
 "use client";
 
 import { projectData } from "@/constant/static-data";
-import { usePageTitle } from "@/hooks/usePageTitle";
 
 import { PageContainer } from "@/components/page-container/page-container";
 import { ScrollDown } from "@/components/scroll-down/scroll-down";
@@ -9,11 +8,9 @@ import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import { StickyScroll } from "@/components/ui/sticky-scroll-reveal";
 
 export default function Projects() {
-  const pageTitle = usePageTitle();
-
   return (
     <div className="w-[85%] mx-auto">
-      <PageContainer page={pageTitle}>
+      <PageContainer>
         <ScrollDown />
       </PageContainer>
 

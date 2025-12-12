@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import React from "react";
 import { motion, useScroll, useTransform } from "motion/react";
@@ -50,7 +52,7 @@ export const BackgroundGradient = ({
           opacity,
         }}
         className={cn(
-          "absolute inset-0 z-[1] rounded-md group-hover:!opacity-100 blur-sm motion-safe:transition-opacity motion-safe:duration-500",
+          "absolute inset-0 z-1 rounded-md group-hover:opacity-100! blur-sm motion-safe:transition-opacity motion-safe:duration-500",
           " bg-[radial-gradient(circle_farthest-side_at_0_100%,#00ccb1,transparent),radial-gradient(circle_farthest-side_at_100%_0,#7b61ff,transparent),radial-gradient(circle_farthest-side_at_100%_100%,#ffc414,transparent),radial-gradient(circle_farthest-side_at_0_0,#1ca0fb,#141316)]"
         )}
       />
@@ -72,7 +74,7 @@ export const BackgroundGradient = ({
           opacity,
         }}
         className={cn(
-          "absolute inset-0 rounded-md z-[1] group-hover:!opacity-100 will-change-transform",
+          "absolute inset-0 rounded-md z-1 group-hover:opacity-100! will-change-transform",
           "bg-[radial-gradient(circle_farthest-side_at_0_100%,#00ccb1,transparent),radial-gradient(circle_farthest-side_at_100%_0,#7b61ff,transparent),radial-gradient(circle_farthest-side_at_100%_100%,#ffc414,transparent),radial-gradient(circle_farthest-side_at_0_0,#1ca0fb,#141316)]"
         )}
       />
