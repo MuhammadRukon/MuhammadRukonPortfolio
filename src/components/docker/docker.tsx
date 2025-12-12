@@ -1,8 +1,7 @@
 import { payload } from "@/lib/payload";
 import { FloatingDock } from "../ui/floating-dock";
-import { Duration } from "@/constant/static-data";
 
-export const revalidate = Duration.Week;
+export const revalidate = 60 * 60 * 24;
 
 export async function Docker() {
   // const iconClassName = "w-full h-full";

@@ -12,8 +12,10 @@ import { fileURLToPath } from "url";
 import { bnBd } from "@payloadcms/translations/languages/bnBd";
 import { en } from "@payloadcms/translations/languages/en";
 import { Home } from "@/globals/Home";
+import { vercelBlobStorage } from "@payloadcms/storage-vercel-blob";
 
 import { Media } from "@/collections/Media";
+import { Experience } from "@/collections/Experience";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -26,8 +28,17 @@ export default buildConfig({
     },
   }),
 
+  plugins: [
+    vercelBlobStorage({
+      collections: {
+        media: true,
+      },
+      token: process.env.BLOB_READ_WRITE_TOKEN,
+    }),
+  ],
+
   // Define and configure your collections in this array
-  collections: [Users, Skills, Education, Blogs, Media],
+  collections: [Users, Skills, Education, Blogs, Media, Experience],
 
   //Define and configure globals (single documents)
   globals: [Navigation, Home],
@@ -67,8 +78,6 @@ export default buildConfig({
   // white listed urls
   cors: ["http://localhost:3000", "https://muhammadrukonsportfolio.netlify.app"],
 
-  csrf: ["http://localhost:3000", "https://muhammadrukonsportfolio.netlify.app"],
-
   // Your Payload secret - should be a complex and secure string, unguessable
   secret: process.env.PAYLOAD_SECRET || "",
   // Whichever Database Adapter you're using should go here
@@ -81,11 +90,4 @@ export default buildConfig({
   // This is optional - if you don't need to do these things,
   // you don't need it!
   sharp,
-
-  // Enable file uploads
-  upload: {
-    limits: {
-      fileSize: 5000000, // 5MB
-    },
-  },
 });

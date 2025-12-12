@@ -1,20 +1,4 @@
-export const designations = [
-  "Software Engineer",
-  "Frontend Engineer",
-  "Frontend Developer",
-  "Full Stack Developer",
-];
-
-const day = 60 * 60 * 24;
-
-export enum Duration {
-  Week = day * 7,
-  Day = day,
-  Month = day * 30,
-  Year = day * 365,
-}
-
-export const CAREER_START_DATE = new Date("Apr 2024");
+export const CAREER_START_DATE = new Date("July 2024");
 
 export const projectData = [
   {
@@ -83,65 +67,5 @@ export const projectData = [
       </>
     ),
     link: "https://pos.outletexpense.com/login",
-  },
-];
-
-export const experienceData = [
-  {
-    title: "Flarie",
-    link: "https://flarie.com",
-    content: (
-      <div className="text-xs sm:text-sm">
-        <p className="mb-8 font-normal text-neutral-800 leading-relaxed dark:text-neutral-200">
-          Stockholm, Sweden (Remote)
-          <br />
-          Feb 2025 - Present
-        </p>
-        <ol className="list-disc list-outside space-y-1">
-          <li>
-            Worked on microfrontend architecture using Single-SPA and practiced TDD in an
-            agile environment.
-          </li>
-          <li>Contributed to multiple core studio features currently in production.</li>
-          <li>
-            Increased test coverage for the main user-facing app to ensure stability for
-            3.4M players and safeguard future refactoring.
-          </li>
-          <li>
-            Ensured full test coverage of the game engine server&apos;s core components,
-            used by over 10M unique players in the past three years.
-          </li>
-          <li>
-            Enhanced the internal UI library, ensuring backward compatibility and
-            improving reusability. Successfully refactored and implemented components in 2
-            out of 14 microfrontends.
-          </li>
-          <li>
-            Improved security across all microfrontend applications by preventing source
-            code exposure in Chrome dev tools.
-          </li>
-        </ol>
-      </div>
-    ),
-  },
-  {
-    title: "Antopolis",
-    link: "https://antopolis.io",
-    content: (
-      <div className="text-xs  sm:text-sm">
-        <p className="mb-8 font-normal text-neutral-800 leading-relaxed dark:text-neutral-200">
-          Dhaka, Bangladesh (Onsite)
-          <br />
-          Apr 2024 - Feb 2025
-        </p>
-        <ol className="list-disc list-outside space-y-1">
-          <li>Delivered MERN-based projects by collaborating with the UI/UX team.</li>
-          <li>Mentored interns regarding UI standards and frontend design principles.</li>
-          <li>Reviewed codes and provided feedbacks.</li>
-          <li>Created frontend starter template to save time doing repetitive work.</li>
-          <li>Built multiple reusable components.</li>
-        </ol>
-      </div>
-    ),
   },
 ];

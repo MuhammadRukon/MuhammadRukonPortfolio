@@ -1,10 +1,11 @@
-import { CAREER_START_DATE, experienceData } from "@/constant/static-data";
+import { CAREER_START_DATE } from "@/constant/static-data";
 
 import { PageContainer } from "@/components/page-container/page-container";
 import { ScrollDown } from "@/components/scroll-down/scroll-down";
 import { Timeline } from "@/components/ui/timeline";
+import { payload } from "@/lib/payload";
 
-export default function Experience() {
+export default async function Experience() {
   const yearsOfExperience = (
     (new Date().getTime() - new Date(CAREER_START_DATE).getTime()) /
     1000 /
@@ -14,6 +15,9 @@ export default function Experience() {
     365
   ).toFixed(1);
 
+  const data = await payload.find({ collection: "experience" });
+
+  const experienceData = data.docs;
   return (
     <>
       <PageContainer>

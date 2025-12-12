@@ -4,14 +4,9 @@ import { useScroll, useTransform, motion } from "motion/react";
 import React, { useEffect, useRef, useState } from "react";
 import { LinkPreview } from "./link-preview";
 import { useResponsive } from "@/hooks/useResponsive";
+import { Experience } from "@payload-types";
 
-interface TimelineEntry {
-  title: string;
-  content: React.ReactNode;
-  link?: string;
-}
-
-export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
+export const Timeline = ({ data }: { data: Experience[] }) => {
   const ref = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState(0);
@@ -21,6 +16,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
     if (ref.current) {
       const rect = ref.current.getBoundingClientRect();
       setHeight(rect.height);
+      console.log(rect.height);
     }
   }, [ref]);
 
@@ -60,7 +56,18 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
                 <h3 className="md:hidden block text-2xl mb-4 text-left font-bold text-neutral-500 dark:text-neutral-500">
                   {item.title} {item.link && <IconExternalLink className="w-4 h-4" />}
                 </h3>
-                {item.content}
+                <div className="text-xs  sm:text-sm">
+                  <p className="mb-8 font-normal text-neutral-800 leading-relaxed dark:text-neutral-200">
+                    {item.location}
+                    <br />
+                    {item.duration}
+                  </p>
+                  <ol className="list-disc list-outside space-y-1">
+                    {item.responsibilities.map(({ point, id }) => (
+                      <li key={id}>{point}</li>
+                    ))}
+                  </ol>
+                </div>
               </div>
             </div>
           );

@@ -3,13 +3,14 @@ import { PageContainer } from "@/components/page-container/page-container";
 import { FlipWords } from "@/components/ui/flip-words";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { payload } from "@/lib/payload";
-import { IconBrandGithub, IconBrandLinkedin } from "@tabler/icons-react";
+import * as TablerIcons from "@tabler/icons-react";
+import Link from "next/link";
 
 export default async function Home() {
-  const { title, summary, designations, resume } = await payload.findGlobal({
+  const { title, summary, designations, resume, socials } = await payload.findGlobal({
     slug: "home",
   });
-
+  console.log(socials);
   const buttonClassName =
     "dark:bg-black bg-white text-black dark:text-white flex items-center space-x-2 text-xs sm:text-sm";
 
@@ -48,22 +49,25 @@ export default async function Home() {
 
           {/* TODO: social link implement with label, icon and href */}
           <div className="flex items-center gap-4 mt-16">
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://www.linkedin.com/in/muhammadrukon/"
-              className="cursor-pointer border-2 border-stone-600 p-2 rounded-sm"
-            >
-              <IconBrandLinkedin className="w-6 h-6 text-stone-300" />
-            </a>
-            <a
-              href="https://github.com/MuhammadRukon"
-              className="cursor-pointer border-2 border-stone-600 p-2 rounded-sm"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <IconBrandGithub className="w-6 h-6 text-stone-300" />
-            </a>
+            {socials?.map((social) => {
+              const TablerIcon =
+                social.icon &&
+                (TablerIcons[
+                  social.icon as keyof typeof TablerIcons
+                ] as React.ComponentType<{
+                  className: string;
+                }>);
+
+              return (
+                <Link
+                  key={social.id}
+                  href={social.link}
+                  className="border-2 border-stone-500 p-2 rounded-full"
+                >
+                  {TablerIcon && <TablerIcon className="w-5 h-5" />}
+                </Link>
+              );
+            })}
           </div>
         </div>
       </PageContainer>

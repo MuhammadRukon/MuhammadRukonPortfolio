@@ -24,7 +24,10 @@ export const Home: GlobalConfig = {
     {
       name: "socials",
       type: "array",
-      fields: [{ name: "link", type: "text", required: true }],
+      fields: [
+        { name: "link", type: "text", required: true },
+        { name: "icon", type: "text" },
+      ],
     },
     {
       name: "resume",

@@ -8,6 +8,13 @@ export const Experience: CollectionConfig = {
   fields: [
     { name: "title", type: "text", required: true },
     { name: "link", type: "text" },
-    { name: "title", type: "text", required: true },
+    { name: "duration", type: "text", required: true },
+    { name: "location", type: "text", required: true },
+    {
+      name: "responsibilities",
+      type: "array",
+      required: true,
+      fields: [{ name: "point", type: "text" }],
+    },
   ],
 };
