@@ -6,7 +6,7 @@ import { payload } from "@/lib/payload";
 import { IconBrandGithub, IconBrandLinkedin } from "@tabler/icons-react";
 
 export default async function Home() {
-  const { title, summary, designations, resume, socials } = await payload.findGlobal({
+  const { title, summary, designations, resume } = await payload.findGlobal({
     slug: "home",
   });
 
@@ -17,6 +17,7 @@ export default async function Home() {
     typeof resume === "object"
       ? resume?.filename
       : "Software_Engineer_Muhammad_Sheikh_Rukon.pdf";
+      
   return (
     <div className="h-screen flex items-center justify-center">
       <PageContainer>

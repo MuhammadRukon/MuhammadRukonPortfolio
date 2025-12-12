@@ -241,7 +241,7 @@ function IconContainer({
           {isActive && (
             <motion.div
               style={{ width: width, height: height }}
-              className="inset-[-1000%] absolute top-[-1px] scale-105 z-[-1] left-[-1px] rounded-full animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#8b5cf6cc_0%,#ef4444cc_25%,#3b82f6cc_50%,#06b6d4cc_75%,#8b5cf6cc_100%)]"
+              className="inset-[-1000%] absolute -top-px scale-105 z-[-1] -left-px rounded-full animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#8b5cf6cc_0%,#ef4444cc_25%,#3b82f6cc_50%,#06b6d4cc_75%,#8b5cf6cc_100%)]"
             ></motion.div>
           )}
           {TablerIcon && <TablerIcon className=" w-10 h-10 " />}

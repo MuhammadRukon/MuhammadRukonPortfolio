@@ -1,5 +1,3 @@
-"use client";
-
 import { CAREER_START_DATE, experienceData } from "@/constant/static-data";
 
 import { PageContainer } from "@/components/page-container/page-container";

@@ -1,8 +1,8 @@
-import { localApi } from "@/lib/payload";
+import { payload } from "@/lib/payload";
 
 export default async function Page() {
-  const result = await localApi("education");
-  const docs = result?.docs ?? [];
+  const data = await payload.find({ collection: "education" });
+  const docs = data?.docs ?? [];
 
   return (
     <div>

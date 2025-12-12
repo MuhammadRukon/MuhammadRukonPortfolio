@@ -3,10 +3,9 @@ import { PageContainer } from "@/components/page-container/page-container";
 import { ScrollDown } from "@/components/scroll-down/scroll-down";
 import { TracingBeam } from "@/components/ui/tracing-beam";
 import { TabContainer } from "@/components/tab-container/tab-container";
-import { Duration } from "@/constant/static-data";
 import { payload } from "@/lib/payload";
 
-export const revalidate = Duration.Week;
+export const revalidate = 604800; // 1 week in seconds
 
 export default async function Skills() {
   const { docs: skills } = await payload.find({

@@ -29,7 +29,7 @@ export function Container({ educationData, cardLength }: ContainerProps) {
   });
   return (
     <div
-      className="relative max-w-5xl mx-auto flex w-full h-[20rem] sm:h-[30rem] bg-white/5 backdrop-blur-sm justify-center space-x-10 overflow-y-auto rounded-md p-10 "
+      className="relative max-w-5xl mx-auto flex w-full h-80 sm:h-120 bg-white/5 backdrop-blur-sm justify-center space-x-10 overflow-y-auto rounded-md p-10 "
       ref={ref}
     >
       <div className="div relative flex items-start px-4">
