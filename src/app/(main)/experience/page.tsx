@@ -5,6 +5,8 @@ import { ScrollDown } from "@/components/scroll-down/scroll-down";
 import { Timeline } from "@/components/ui/timeline";
 import { payload } from "@/lib/payload";
 
+export const revalidate = 604800; // 1 week in seconds
+
 export default async function Experience() {
   const yearsOfExperience = (
     (new Date().getTime() - new Date(CAREER_START_DATE).getTime()) /

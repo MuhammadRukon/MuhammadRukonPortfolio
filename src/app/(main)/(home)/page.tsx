@@ -6,18 +6,21 @@ import { payload } from "@/lib/payload";
 import * as TablerIcons from "@tabler/icons-react";
 import Link from "next/link";
 
+export const revalidate = 604800; // 1 week in seconds
+
 export default async function Home() {
   const { title, summary, designations, resume, socials } = await payload.findGlobal({
     slug: "home",
   });
-  console.log(socials);
+
   const buttonClassName =
     "dark:bg-black bg-white text-black dark:text-white flex items-center space-x-2 text-xs sm:text-sm";
 
-  const path =
-    typeof resume === "object"
-      ? resume?.filename
-      : "Software_Engineer_Muhammad_Sheikh_Rukon.pdf";
+  // Use the URL from Vercel Blob Storage directly
+  const resumeUrl =
+    typeof resume === "object" && resume?.url
+      ? resume.url
+      : "/Software_Engineer_Muhammad_Sheikh_Rukon.pdf";
 
   return (
     <div className="h-screen flex items-center justify-center">
@@ -34,8 +37,10 @@ export default async function Home() {
             <HireMeModal />
 
             <a
-              href={`/media/${path}`}
+              href={resumeUrl}
               download="Software_Engineer_Muhammad_Sheikh_Rukon.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <HoverBorderGradient
                 containerClassName="rounded-full cursor-pointer"

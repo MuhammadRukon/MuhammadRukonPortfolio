@@ -26,8 +26,8 @@ const SkillTab = ({ skill }: { skill: Skill }) => {
       className="rounded-md"
       containerClassName="rounded-md bg-white dark:bg-zinc-900 w-fit mx-auto"
     >
-      <div className="flex gap-1 items-center border-1 w-fit px-2 py-1.5 rounded-md bg-black">
-        {TablerIcon && <TablerIcon className="w-5 h-5" />}
+      <div className="flex gap-1 items-center border w-fit px-1.5 sm:px-2 py-1 sm:py-1.5 rounded-md bg-black">
+        {TablerIcon && <TablerIcon className="w-4 sm:w-5 h-4 sm:h-5" />}
         <p className="text-[10px] sm:text-xs text-nowrap">{skill.name}</p>
       </div>
     </BackgroundGradient>

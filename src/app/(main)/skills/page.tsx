@@ -34,7 +34,9 @@ export default async function Skills() {
             <TabContainer
               type={type}
               key={type}
-              skills={skills.filter((skill) => skill.type === type)}
+              skills={skills
+                .filter((skill) => skill.type === type)
+                .sort((a, b) => a.name.length - b.name.length)}
             />
           ))}
         </div>
