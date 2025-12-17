@@ -16,6 +16,7 @@ import { vercelBlobStorage } from "@payloadcms/storage-vercel-blob";
 
 import { Media } from "@/collections/Media";
 import { Experience } from "@/collections/Experience";
+import { Projects } from "@/collections/Projects";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -38,7 +39,7 @@ export default buildConfig({
   ],
 
   // Define and configure your collections in this array
-  collections: [Users, Skills, Education, Blogs, Media, Experience],
+  collections: [Users, Skills, Education, Blogs, Media, Experience, Projects],
 
   //Define and configure globals (single documents)
   globals: [Navigation, Home],

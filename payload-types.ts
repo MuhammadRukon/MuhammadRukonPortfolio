@@ -73,6 +73,7 @@ export interface Config {
     blogs: Blog;
     media: Media;
     experience: Experience;
+    project: Project;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -86,6 +87,7 @@ export interface Config {
     blogs: BlogsSelect<false> | BlogsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     experience: ExperienceSelect<false> | ExperienceSelect<true>;
+    project: ProjectSelect<false> | ProjectSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -253,6 +255,22 @@ export interface Experience {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "project".
+ */
+export interface Project {
+  id: string;
+  title: string;
+  subtitle: string;
+  link: string;
+  description: {
+    point?: string | null;
+    id?: string | null;
+  }[];
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -298,6 +316,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'experience';
         value: string | Experience;
+      } | null)
+    | ({
+        relationTo: 'project';
+        value: string | Project;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -432,6 +454,23 @@ export interface ExperienceSelect<T extends boolean = true> {
   duration?: T;
   location?: T;
   responsibilities?:
+    | T
+    | {
+        point?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "project_select".
+ */
+export interface ProjectSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  link?: T;
+  description?:
     | T
     | {
         point?: T;

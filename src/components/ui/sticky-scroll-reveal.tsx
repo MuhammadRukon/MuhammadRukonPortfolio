@@ -5,17 +5,13 @@ import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import { encode } from "qss";
 import { IconExternalLink } from "@tabler/icons-react";
+import { Project } from "@payload-types";
 
 export const StickyScroll = ({
   content,
   contentClassName,
 }: {
-  content: {
-    title: string;
-    subtitle: string;
-    description: React.ReactNode;
-    link: string;
-  }[];
+  content: Project[];
   contentClassName?: string;
 }) => {
   const [activeCard, setActiveCard] = React.useState(0);
@@ -71,7 +67,7 @@ export const StickyScroll = ({
           // backgroundColor: backgroundColors[activeCard % backgroundColors.length],
         }
       }
-      className="relative flex h-[30rem] bg-neutral-900 justify-center space-x-10 overflow-y-auto rounded-md p-10 "
+      className="relative flex h-120 bg-neutral-900 justify-center space-x-10 overflow-y-auto rounded-md p-10 "
       ref={ref}
     >
       <div className="div relative flex items-start px-4">
@@ -115,7 +111,7 @@ export const StickyScroll = ({
                 animate={{
                   opacity: activeCard === index ? 1 : 0.3,
                 }}
-                className="text-xs sm:text-sm mt-1 max-w-sm text-slate-300"
+                className="text-xs sm:text-sm mt-1 max-w-sm text-gray-400 italic"
               >
                 {item.subtitle}
               </motion.p>
@@ -128,7 +124,9 @@ export const StickyScroll = ({
                 }}
                 className="text-xs sm:text-sm mt-4 max-w-sm text-slate-300 list-disc list-outside space-y-1.5"
               >
-                {item.description}
+                {item.description.map(({ point, id }) => (
+                  <li key={id}>{point}</li>
+                ))}
               </motion.ol>
             </motion.div>
           ))}
