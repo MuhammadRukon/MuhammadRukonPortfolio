@@ -1,4 +1,4 @@
-export const CAREER_START_DATE = new Date("July 2024");
+export const CAREER_START_DATE = new Date("June 2024");
 
 export const projectData = [
   {

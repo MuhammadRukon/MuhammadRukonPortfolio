@@ -15,7 +15,7 @@ export function PageContainer({ children }: PageContainerProps) {
     <div className="min-h-[95vh] w-full flex items-center justify-center relative text-white p-3 sm:p-10">
       <div className="w-full h-full absolute top-0 left-0">
         <TextHoverEffect
-          text={page}
+          text={page.toLowerCase() === "index" ? "Rukon" : page}
           isHomePage={page === "Home" || page === "Experience"}
         />
       </div>
