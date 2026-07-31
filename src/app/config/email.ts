@@ -7,6 +7,4 @@ export const sendMail = async (data: Record<string, unknown>) => {
     data,
     process.env.NEXT_PUBLIC_EMAIL_PUBLIC_KEY
   );
-
-  
 };
