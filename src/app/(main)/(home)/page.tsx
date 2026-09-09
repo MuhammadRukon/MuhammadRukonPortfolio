@@ -16,10 +16,11 @@ export default async function Home() {
   const buttonClassName =
     "dark:bg-black bg-white text-black dark:text-white flex items-center space-x-2 text-xs sm:text-sm";
 
-  // Use the URL from Vercel Blob Storage directly
+  // Proxy through same-origin route so the `download` attribute works
+  // (cross-origin blob storage URLs cause the browser to ignore it).
   const resumeUrl =
     typeof resume === "object" && resume?.url
-      ? resume.url
+      ? "/api/resume"
       : "/Software_Engineer_Muhammad_Sheikh_Rukon.pdf";
 
   return (
